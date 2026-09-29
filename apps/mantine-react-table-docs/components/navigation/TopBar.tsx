@@ -21,7 +21,7 @@ import {
   IconMoonStars,
 } from '@tabler/icons-react';
 import { useMediaQuery } from '@mantine/hooks';
-import docsearch from '@docsearch/js';
+import docsearch from '@docsearch/js/docsearch';
 import '@docsearch/css';
 import { getPrimaryColor } from 'mantine-react-table';
 import { useRouter } from 'next/router';
@@ -47,7 +47,7 @@ export const TopBar = ({ navOpen, setNavOpen }: Props) => {
       docsearch({
         appId: 'GA9W0E15I8',
         apiKey: 'd1d8da70283d84d7669881d993eff727',
-        indexName: 'mantine-react-table',
+        indices: ['mantine-react-table'],
         container: '#docsearch',
       });
     }

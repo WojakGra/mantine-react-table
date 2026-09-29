@@ -2,14 +2,16 @@ import clsx from 'clsx';
 
 import classes from './MRT_ToolbarInternalButtons.module.css';
 
-import { Flex, type FlexProps } from '@mantine/core';
+import { Flex } from '@mantine/core';
+import type { FlexProps } from '@mantine/core';
 
-import { type MRT_RowData, type MRT_TableInstance } from '../../types';
 import { MRT_ShowHideColumnsButton } from '../buttons/MRT_ShowHideColumnsButton';
 import { MRT_ToggleDensePaddingButton } from '../buttons/MRT_ToggleDensePaddingButton';
 import { MRT_ToggleFiltersButton } from '../buttons/MRT_ToggleFiltersButton';
 import { MRT_ToggleFullScreenButton } from '../buttons/MRT_ToggleFullScreenButton';
 import { MRT_ToggleGlobalFilterButton } from '../buttons/MRT_ToggleGlobalFilterButton';
+
+import type { MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends FlexProps {
   table: MRT_TableInstance<TData>;

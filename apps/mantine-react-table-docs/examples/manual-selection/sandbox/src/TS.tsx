@@ -50,10 +50,10 @@ const Example = () => {
     mantineTableBodyRowProps: ({ row }) => ({
       //implement row selection click events manually
       onClick: () =>
-        setRowSelection((prev) => ({
-          ...prev,
-          [row.id]: !prev[row.id],
-        })),
+        setRowSelection((prev) => {
+          const { [row.id]: wasSelected, ...rest } = prev;
+          return wasSelected ? rest : { ...rest, [row.id]: true };
+        }),
       selected: rowSelection[row.id],
       style: {
         cursor: 'pointer',

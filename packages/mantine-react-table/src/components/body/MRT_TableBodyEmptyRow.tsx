@@ -4,23 +4,15 @@ import classes from './MRT_TableBody.module.css';
 
 import { useMemo } from 'react';
 
-import { createRow } from '@tanstack/react-table';
+import { constructRow as createRow } from '@tanstack/react-table';
 
-import {
-  type TableProps,
-  TableTd,
-  type TableTrProps,
-  Text,
-} from '@mantine/core';
+import { TableTd, Text } from '@mantine/core';
+import type { TableProps, TableTrProps } from '@mantine/core';
 
+import { MRT_ExpandButton } from '../buttons/MRT_ExpandButton';
 import { MRT_TableBodyRow } from './MRT_TableBodyRow';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
-import { MRT_ExpandButton } from '../buttons/MRT_ExpandButton';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends TableTrProps {
   table: MRT_TableInstance<TData>;
@@ -33,7 +25,6 @@ export const MRT_TableBodyEmptyRow = <TData extends MRT_RowData>({
   ...commonRowProps
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       layoutMode,
       localization,
@@ -41,8 +32,9 @@ export const MRT_TableBodyEmptyRow = <TData extends MRT_RowData>({
       renderEmptyRowsFallback,
     },
     refs: { tablePaperRef },
+    state,
   } = table;
-  const { columnFilters, globalFilter } = getState();
+  const { columnFilters, globalFilter } = state;
 
   const emptyRow = useMemo(
     () =>

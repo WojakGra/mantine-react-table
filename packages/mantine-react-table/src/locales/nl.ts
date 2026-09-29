@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_NL: MRT_Localization = {
   actions: 'Acties',
@@ -11,11 +11,11 @@ export const MRT_Localization_NL: MRT_Localization = {
   clearSelection: 'Selectie wissen',
   clearSort: 'Annuleer sortering',
   clickToCopy: 'Klik om te kopiëren',
-  copy: 'Kopiëren',
   collapse: 'Samenvouwen',
   collapseAll: 'Alles samenvouwen',
   columnActions: 'Kolom acties',
   copiedToClipboard: 'Gekopieerd naar klembord',
+  copy: 'Kopiëren',
   dropToGroupBy: 'Laat vallen om te groeperen op {column}',
   edit: 'Bewerk',
   expand: 'Breidt uit',
@@ -34,9 +34,10 @@ export const MRT_Localization_NL: MRT_Localization = {
   filterFuzzy: 'Wazig',
   filterGreaterThan: 'Groter dan',
   filterGreaterThanOrEqualTo: 'Groter dan of gelijk aan',
-  filterInNumberRange: 'Tussen',
   filterIncludesString: 'Omvat',
   filterIncludesStringSensitive: 'Omvat',
+  filteringByColumn: 'Filteren op {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Tussen',
   filterLessThan: 'Kleiner dan',
   filterLessThanOrEqualTo: 'Kleiner dan of gelijk aan',
   filterMode: 'Filter modus: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_NL: MRT_Localization = {
   filterNotEquals: 'Niet gelijk aan',
   filterStartsWith: 'Start met',
   filterWeakEquals: 'Gelijk aan',
-  filteringByColumn: 'Filteren op {column} - {filterType} {filterValue}',
   goToFirstPage: 'Ga naar de eerste pagina',
   goToLastPage: 'Ga naar de laatste pagina',
   goToNextPage: 'Ga naar de volgende pagina',
@@ -72,9 +72,9 @@ export const MRT_Localization_NL: MRT_Localization = {
   rowsPerPage: 'Rijen per pagina',
   save: 'Opslaan',
   search: 'Zoeken',
+  select: 'Selecteer',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} van {rowCount} rij(en) geselecteerd',
-  select: 'Selecteer',
   showAll: 'Alles tonen',
   showAllColumns: 'Toon alle kolommen',
   showHideColumns: 'Toon/Verberg kolommen',

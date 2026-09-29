@@ -3,7 +3,8 @@ import clsx from 'clsx';
 import commonClasses from './common.styles.module.css';
 import classes from './MRT_BottomToolbar.module.css';
 
-import { Box, type BoxProps } from '@mantine/core';
+import { Box } from '@mantine/core';
+import type { BoxProps } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 import { MRT_ProgressBar } from './MRT_ProgressBar';
@@ -11,7 +12,7 @@ import { MRT_TablePagination } from './MRT_TablePagination';
 import { MRT_ToolbarAlertBanner } from './MRT_ToolbarAlertBanner';
 import { MRT_ToolbarDropZone } from './MRT_ToolbarDropZone';
 
-import { type MRT_RowData, type MRT_TableInstance } from '../../types';
+import type { MRT_RowData, MRT_TableInstance } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends BoxProps {
@@ -23,7 +24,6 @@ export const MRT_BottomToolbar = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       enablePagination,
       mantineBottomToolbarProps,
@@ -33,8 +33,9 @@ export const MRT_BottomToolbar = <TData extends MRT_RowData>({
       renderBottomToolbarCustomActions,
     },
     refs: { bottomToolbarRef },
+    state,
   } = table;
-  const { isFullScreen } = getState();
+  const { isFullScreen } = state;
 
   const isMobile = useMediaQuery('(max-width: 720px)');
 

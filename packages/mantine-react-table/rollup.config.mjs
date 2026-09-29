@@ -1,4 +1,5 @@
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
+
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import del from 'rollup-plugin-delete';
@@ -14,6 +15,7 @@ export default [
       '@mantine/hooks',
       '@tabler/icons-react',
       '@tanstack/match-sorter-utils',
+      '@tanstack/react-store',
       '@tanstack/react-table',
       '@tanstack/react-virtual',
       'clsx',
@@ -36,6 +38,7 @@ export default [
     plugins: [
       external(),
       typescript({
+        declarationDir: './dist/types',
         rootDir: './src',
       }),
       postcss({

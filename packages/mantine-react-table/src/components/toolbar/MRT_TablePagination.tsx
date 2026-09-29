@@ -7,12 +7,12 @@ import {
   Box,
   Group,
   Pagination,
-  type PaginationProps,
   Select,
   Text,
 } from '@mantine/core';
+import type { PaginationProps } from '@mantine/core';
 
-import { type MRT_RowData, type MRT_TableInstance } from '../../types';
+import type { MRT_RowData, MRT_TableInstance } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
 const defaultRowsPerPage = [5, 10, 15, 20, 25, 30, 50, 100].map((x) =>
@@ -30,8 +30,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
   ...props
 }: Props<TData>) => {
   const {
-    getPrePaginationRowModel,
-    getState,
+    getPrePaginatedRowModel,
     options: {
       enableToolbarInternalActions,
       icons: {
@@ -47,11 +46,12 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
     },
     setPageIndex,
     setPageSize,
+    state,
   } = table;
   const {
     pagination: { pageIndex = 0, pageSize = 10 },
     showGlobalFilter,
-  } = getState();
+  } = state;
 
   const paginationProps = {
     ...parseFromValuesOrFunc(mantinePaginationProps, {
@@ -60,7 +60,7 @@ export const MRT_TablePagination = <TData extends MRT_RowData>({
     ...props,
   };
 
-  const totalRowCount = rowCount ?? getPrePaginationRowModel().rows.length;
+  const totalRowCount = rowCount ?? getPrePaginatedRowModel().rows.length;
   const numberOfPages = Math.ceil(totalRowCount / pageSize);
   const showFirstLastPageButtons = numberOfPages > 2;
   const firstRowIndex = pageIndex * pageSize;

@@ -1,8 +1,9 @@
 import { MRT_TableBodyRowPinButton } from '../../components/body/MRT_TableBodyRowPinButton';
-import {
-  type MRT_ColumnDef,
-  type MRT_RowData,
-  type MRT_StatefulTableOptions,
+
+import type {
+  MRT_ColumnDef,
+  MRT_RowData,
+  MRT_StatefulTableOptions,
 } from '../../types';
 import { defaultDisplayColumnProps } from '../../utils/displayColumn.utils';
 

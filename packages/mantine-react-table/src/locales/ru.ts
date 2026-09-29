@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_RU: MRT_Localization = {
   actions: 'Действия',
@@ -11,11 +11,11 @@ export const MRT_Localization_RU: MRT_Localization = {
   clearSelection: 'Очистить выбор',
   clearSort: 'Очистить сортировку',
   clickToCopy: 'Нажмите, чтобы скопировать',
-  copy: 'Копировать',
-  columnActions: 'Действие колонки',
-  copiedToClipboard: 'Скопировано в буфер обмена',
   collapse: 'Свернуть',
   collapseAll: 'Свернуть все',
+  columnActions: 'Действие колонки',
+  copiedToClipboard: 'Скопировано в буфер обмена',
+  copy: 'Копировать',
   dropToGroupBy: 'Добавить в группу к {column}',
   edit: 'Редактировать',
   expand: 'Раскрыть',
@@ -34,9 +34,10 @@ export const MRT_Localization_RU: MRT_Localization = {
   filterFuzzy: 'Физзи',
   filterGreaterThan: 'Больше чем',
   filterGreaterThanOrEqualTo: 'Больше или равно',
-  filterInNumberRange: 'Между',
   filterIncludesString: 'Содержит',
   filterIncludesStringSensitive: 'Содержит (регистрозависимый)',
+  filteringByColumn: 'Фильтр по {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Между',
   filterLessThan: 'Меньше чем',
   filterLessThanOrEqualTo: 'Меньше или равно',
   filterMode: 'Режим фильтра: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_RU: MRT_Localization = {
   filterNotEquals: 'Не равны',
   filterStartsWith: 'Начинается с',
   filterWeakEquals: 'Равны',
-  filteringByColumn: 'Фильтр по {column} - {filterType} {filterValue}',
   goToFirstPage: 'Перейти на первую страницу',
   goToLastPage: 'Перейти на последнюю страницу',
   goToNextPage: 'Перейти на следующую страницу',
@@ -72,9 +72,9 @@ export const MRT_Localization_RU: MRT_Localization = {
   rowsPerPage: 'Строк на странице',
   save: 'Сохранить',
   search: 'Найти',
+  select: 'Выбрать',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} из {rowCount} строк выбрано',
-  select: 'Выбрать',
   showAll: 'Показать все',
   showAllColumns: 'Показать все колонки',
   showHideColumns: 'Показать/скрыть колонки',

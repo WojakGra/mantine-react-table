@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_FA: MRT_Localization = {
   actions: 'عملیات',
@@ -11,11 +11,11 @@ export const MRT_Localization_FA: MRT_Localization = {
   clearSelection: 'پاک کردن انتخاب',
   clearSort: 'پاک کردن مرتب سازی',
   clickToCopy: 'کپی کردن',
-  copy: 'کپی',
   collapse: 'بستن',
   collapseAll: 'بستن همه',
   columnActions: 'اقدامات ستون',
   copiedToClipboard: 'کپی به کلیپ بورد',
+  copy: 'کپی',
   dropToGroupBy: 'حذف گروه بندی {column}',
   edit: 'ویرایش',
   expand: 'باز کردن',
@@ -34,9 +34,10 @@ export const MRT_Localization_FA: MRT_Localization = {
   filterFuzzy: 'درهم',
   filterGreaterThan: 'بزرگتر از',
   filterGreaterThanOrEqualTo: 'بزرگتر مساوی با',
-  filterInNumberRange: 'بین',
   filterIncludesString: 'شامل',
   filterIncludesStringSensitive: 'شامل',
+  filteringByColumn: 'فیلتر با {column} - {filtertype} {filtervalue}',
+  filterInNumberRange: 'بین',
   filterLessThan: 'کمتر از',
   filterLessThanOrEqualTo: 'کمتر مساوی با',
   filterMode: ' فیلتر :{filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_FA: MRT_Localization = {
   filterNotEquals: 'مساوی نبودن با  ',
   filterStartsWith: 'شروع با ',
   filterWeakEquals: 'مساوی با ',
-  filteringByColumn: 'فیلتر با {column} - {filtertype} {filtervalue}',
   goToFirstPage: 'صفحه اول',
   goToLastPage: 'صفحه آخر',
   goToNextPage: 'صفحه بعد',
@@ -72,9 +72,9 @@ export const MRT_Localization_FA: MRT_Localization = {
   rowsPerPage: 'تعداد ردیف در هر صفحه',
   save: 'ذخیره کردن',
   search: 'جستجو',
+  select: 'انتخاب',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} از {rowCount} انتخاب شد',
-  select: 'انتخاب',
   showAll: 'نمایش همه',
   showAllColumns: 'نمایش تمام ستون ها',
   showHideColumns: 'نمایش/مخفی کردن ستون ها',

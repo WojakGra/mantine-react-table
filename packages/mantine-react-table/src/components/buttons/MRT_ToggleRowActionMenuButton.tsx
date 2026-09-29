@@ -1,18 +1,18 @@
-import { type MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 
 import { ActionIcon, Tooltip } from '@mantine/core';
 
+import { MRT_RowActionMenu } from '../menus/MRT_RowActionMenu';
 import { MRT_EditActionButtons } from './MRT_EditActionButtons';
 
-import {
-  type MRT_Cell,
-  type MRT_CellValue,
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  MRT_Cell,
+  MRT_CellValue,
+  MRT_Row,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { MRT_RowActionMenu } from '../menus/MRT_RowActionMenu';
 
 interface Props<TData extends MRT_RowData, TValue = MRT_CellValue> {
   cell: MRT_Cell<TData, TValue>;
@@ -26,7 +26,6 @@ export const MRT_ToggleRowActionMenuButton = <TData extends MRT_RowData>({
   table,
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       createDisplayMode,
       editDisplayMode,
@@ -37,16 +36,17 @@ export const MRT_ToggleRowActionMenuButton = <TData extends MRT_RowData>({
       renderRowActions,
     },
     setEditingRow,
+    state,
   } = table;
 
-  const { creatingRow, editingRow } = getState();
+  const { creatingRow, editingRow } = state;
 
   const isCreating = creatingRow?.id === row.id;
   const isEditing = editingRow?.id === row.id;
 
   const handleStartEditMode = (event: MouseEvent) => {
     event.stopPropagation();
-    setEditingRow({ ...row });
+    setEditingRow(row);
   };
 
   const showEditActionButtons =

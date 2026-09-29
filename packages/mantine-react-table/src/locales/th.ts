@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_TH: MRT_Localization = {
   actions: 'เมนูเครื่องมือ',
@@ -8,13 +8,14 @@ export const MRT_Localization_TH: MRT_Localization = {
   changeSearchMode: 'เปลี่ยนโหมดค้นหา',
   clearFilter: 'ล้างตัวกรอง',
   clearSearch: 'ล้างการค้นหา',
+  clearSelection: 'ล้างการเลือก',
   clearSort: 'ล้างการเรียงลำดับ',
   clickToCopy: 'คลิกเพื่อคัดลอก',
   collapse: 'ย่อ',
   collapseAll: 'ย่อทั้งหมด',
   columnActions: 'การจัดการคอลัมน์',
   copiedToClipboard: 'คัดลอกไปยังคลิปบอร์ดแล้ว',
-
+  copy: 'คัดลอก',
   dropToGroupBy: 'ลากมาเพื่อจัดกลุ่มตามคอลัมน์ "{column}"',
   edit: 'แก้ไข',
   expand: 'ขยาย',
@@ -33,9 +34,11 @@ export const MRT_Localization_TH: MRT_Localization = {
   filterFuzzy: 'กรองเมื่อคล้ายกัน',
   filterGreaterThan: 'กรองเมื่อมากกว่า',
   filterGreaterThanOrEqualTo: 'กรองเมื่อมากกว่าหรือเท่ากับ',
-  filterInNumberRange: 'กรองเมื่อค่าอยู่อยู่ในช่วง',
   filterIncludesString: 'กรองเมื่อมีข้อความว่า',
-  filterIncludesStringSensitive: 'กรองเมื่อมีข้อความว่า (ตรงตามตัวพิมพ์ใหญ่-เล็ก)',
+  filterIncludesStringSensitive:
+    'กรองเมื่อมีข้อความว่า (ตรงตามตัวพิมพ์ใหญ่-เล็ก)',
+  filteringByColumn: 'กำลังกรองด้วย "{column}" - {filterType} {filterValue}',
+  filterInNumberRange: 'กรองเมื่อค่าอยู่อยู่ในช่วง',
   filterLessThan: 'กรองเมื่อน้อยกว่า',
   filterLessThanOrEqualTo: 'กรองเมื่อน้อยกว่าหรือเท่ากับ',
   filterMode: 'โหมดการกรอง: {filterType}',
@@ -43,7 +46,6 @@ export const MRT_Localization_TH: MRT_Localization = {
   filterNotEquals: 'กรองเมื่อไม่เท่ากับ',
   filterStartsWith: 'กรองเมื่อเริ่มต้นด้วย',
   filterWeakEquals: 'กรองเมื่อเท่ากับ',
-  filteringByColumn: 'กำลังกรองด้วย "{column}" - {filterType} {filterValue}',
   goToFirstPage: 'ไปหน้าแรก',
   goToLastPage: 'ไปหน้าสุดท้าย',
   goToNextPage: 'ไปหน้าถัดไป',
@@ -60,6 +62,7 @@ export const MRT_Localization_TH: MRT_Localization = {
   noResultsFound: 'ไม่พบข้อมูลที่ค้นหา',
   of: 'จาก',
   or: 'หรือ',
+  pin: 'ตรึง',
   pinToLeft: 'ตรึงคอลัมน์ไปทางซ้าย',
   pinToRight: 'ตรึงคอลัมน์ไปทางขวา',
   resetColumnSize: 'ปรับขนาดคอลัมน์เป็นค่าเริ่มต้น',
@@ -70,9 +73,9 @@ export const MRT_Localization_TH: MRT_Localization = {
   rowsPerPage: 'จำนวนแถวต่อหน้า',
   save: 'บันทึก',
   search: 'ค้นหา',
+  select: 'เลือก',
   selectedCountOfRowCountRowsSelected:
     'เลือก {selectedCount} จาก {rowCount} แถว',
-  select: 'เลือก',
   showAll: 'แสดงทั้งหมด',
   showAllColumns: 'แสดงทุกคอลัมน์',
   showHideColumns: 'แสดง/ซ่อนคอลัมน์',

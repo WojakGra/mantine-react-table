@@ -53,8 +53,8 @@ const table = useMantineReactTable({
   enableColumnPinning: true,
   initialState: {
     columnPinning: {
-      left: ['email'], //pin email column to left by default
-      right: ['mrt-row-actions'], //pin built-in row actions display column to right by default
+      start: ['email'], //pin email column to the start (left in LTR) by default
+      end: ['mrt-row-actions'], //pin built-in row actions display column to the end (right in LTR) by default
     },
   },
 });

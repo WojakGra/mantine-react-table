@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_HY: MRT_Localization = {
   actions: 'Գործողություններ',
@@ -11,11 +11,11 @@ export const MRT_Localization_HY: MRT_Localization = {
   clearSelection: 'Մաքրել ընտրությունը',
   clearSort: 'Մաքրել տեսակավորումը',
   clickToCopy: 'Սեղմել պատճենելու համար',
-  copy: 'Պատճենել',
-  columnActions: 'Սյունակի գործողություն',
-  copiedToClipboard: 'Պատճենվել է փոխանակման բուֆերում',
   collapse: 'Փոքրացնել',
   collapseAll: 'Փոքրացնել բոլորը',
+  columnActions: 'Սյունակի գործողություն',
+  copiedToClipboard: 'Պատճենվել է փոխանակման բուֆերում',
+  copy: 'Պատճենել',
   dropToGroupBy: 'Ավելացնել խմբին {column}',
   edit: 'Խմբագրել',
   expand: 'Բացել',
@@ -34,9 +34,10 @@ export const MRT_Localization_HY: MRT_Localization = {
   filterFuzzy: 'Ֆազզի',
   filterGreaterThan: 'Ավել է քան',
   filterGreaterThanOrEqualTo: 'Ավել է կամ հավասար է',
-  filterInNumberRange: 'Միջև',
   filterIncludesString: 'Պարունակում է',
   filterIncludesStringSensitive: 'Պարունակում է (գրանցումից կախված է)',
+  filteringByColumn: 'Զտիչը ըստ {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Միջև',
   filterLessThan: 'Փոքր է քան',
   filterLessThanOrEqualTo: 'Զտիչի ռեժիմ',
   filterMode: 'Զտիչի ռեժիմ: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_HY: MRT_Localization = {
   filterNotEquals: 'Հավասար չեն',
   filterStartsWith: 'Սկսվում է ...-ից',
   filterWeakEquals: 'Հավասար են',
-  filteringByColumn: 'Զտիչը ըստ {column} - {filterType} {filterValue}',
   goToFirstPage: 'Անցնել առաջին էջ',
   goToLastPage: 'Անցնել վերջին էջ',
   goToNextPage: 'Անցնել հաջորդ էջ',
@@ -72,9 +72,9 @@ export const MRT_Localization_HY: MRT_Localization = {
   rowsPerPage: 'Տողեր էջում',
   save: 'Պահպանել',
   search: 'Գտնել',
+  select: 'Ընտրել',
   selectedCountOfRowCountRowsSelected:
     '{rowCount} տողից ընտրված է {selectedCount}',
-  select: 'Ընտրել',
   showAll: 'Ցույց տալ բոլորը',
   showAllColumns: 'Ցույց տալ բոլոր սյունակները',
   showHideColumns: 'Ցույց տալ/թաքցնել սյունակները',

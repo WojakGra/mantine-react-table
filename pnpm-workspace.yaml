@@ -1,3 +1,12 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# 7 days, in minutes: never install versions younger than this (supply-chain safety)
+minimumReleaseAge: 10080
+preferWorkspacePackages: true
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+  unrs-resolver: true
+  core-js: false

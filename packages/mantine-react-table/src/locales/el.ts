@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_EL: MRT_Localization = {
   actions: 'Ενέργειες',
@@ -11,11 +11,11 @@ export const MRT_Localization_EL: MRT_Localization = {
   clearSelection: 'Καθαρισμός επιλογής',
   clearSort: 'Καθαρισμός ταξινόμησης',
   clickToCopy: 'Κλικ για αντιγραφή',
-  copy: 'Αντιγραφή',
   collapse: 'Σύμπτυξη',
   collapseAll: 'Σύμπτυξη όλων',
   columnActions: 'Ενέργειες στη στήλη',
   copiedToClipboard: 'Αντιγράφηκε στο πρόχειρο',
+  copy: 'Αντιγραφή',
   dropToGroupBy: 'Τοποθέτηση για ομαδοποίηση ανά {column}',
   edit: 'Επεξεργασία',
   expand: 'Επέκταση',
@@ -34,9 +34,10 @@ export const MRT_Localization_EL: MRT_Localization = {
   filterFuzzy: 'Ασαφές',
   filterGreaterThan: 'Μεγαλύτερο από',
   filterGreaterThanOrEqualTo: 'Μεγαλύτερο ή ίσο με',
-  filterInNumberRange: 'Μεταξύ αριθμών',
   filterIncludesString: 'Περιλαμβάνει συμβολοσειρά',
   filterIncludesStringSensitive: 'Περιλαμβάνει συμβολοσειρά (ευαίσθητο)',
+  filteringByColumn: 'Φιλτράρισμα ανά {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Μεταξύ αριθμών',
   filterLessThan: 'Μικρότερο από',
   filterLessThanOrEqualTo: 'Μικρότερο ή ίσο με',
   filterMode: 'Λειτουργία φίλτρου: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_EL: MRT_Localization = {
   filterNotEquals: 'Όχι ίσο',
   filterStartsWith: 'Ξεκινάει με',
   filterWeakEquals: 'Ίσο (ανακριβές)',
-  filteringByColumn: 'Φιλτράρισμα ανά {column} - {filterType} {filterValue}',
   goToFirstPage: 'Πήγαινε στην πρώτη σελίδα',
   goToLastPage: 'Πήγαινε στην τελευταία σελίδα',
   goToNextPage: 'Πήγαινε στην επόμενη σελίδα',
@@ -72,9 +72,9 @@ export const MRT_Localization_EL: MRT_Localization = {
   rowsPerPage: 'Γραμμές ανά σελίδα',
   save: 'Αποθήκευση',
   search: 'Αναζήτηση',
+  select: 'Επιλογή',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} από {rowCount} επιλεγμένη(ες) γραμμή(ες)',
-  select: 'Επιλογή',
   showAll: 'Εμφάνιση όλων',
   showAllColumns: 'Εμφάνιση όλων των στηλών',
   showHideColumns: 'Εμφάνιση/απόκρυψη στηλών',

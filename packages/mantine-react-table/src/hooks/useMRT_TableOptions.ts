@@ -1,28 +1,28 @@
 import { useMemo } from 'react';
 
 import {
-  getCoreRowModel,
-  getExpandedRowModel,
-  getFacetedMinMaxValues,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getGroupedRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
+  createExpandedRowModel,
+  createFacetedMinMaxValues,
+  createFacetedRowModel,
+  createFacetedUniqueValues,
+  createFilteredRowModel,
+  createGroupedRowModel,
+  createPaginatedRowModel,
+  createSortedRowModel,
+  stockFeatures,
 } from '@tanstack/react-table';
 
 import { useDirection } from '@mantine/core';
 
-import { MRT_AggregationFns } from '../fns/aggregationFns';
+import { MRT_RowAggregationFns } from '../fns/aggregationFns';
 import { MRT_FilterFns } from '../fns/filterFns';
-import { MRT_SortingFns } from '../fns/sortingFns';
+import { MRT_SortFns } from '../fns/sortingFns';
 import { MRT_Default_Icons } from '../icons';
 import { MRT_Localization_EN } from '../locales/en';
-import {
-  type MRT_DefinedTableOptions,
-  type MRT_RowData,
-  type MRT_TableOptions,
+import type {
+  MRT_DefinedTableOptions,
+  MRT_RowData,
+  MRT_TableOptions,
 } from '../types';
 
 export const MRT_DefaultColumn = {
@@ -111,7 +111,7 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
   rowNumberDisplayMode = 'static',
   rowPinningDisplayMode = 'sticky',
   selectAllMode = 'page',
-  sortingFns,
+  sortFns,
   ...rest
 }: MRT_TableOptions<TData>) => {
   const direction = useDirection();
@@ -125,11 +125,14 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
     [localization],
   );
   aggregationFns = useMemo(
-    () => ({ ...MRT_AggregationFns, ...aggregationFns }),
+    () => ({ ...MRT_RowAggregationFns, ...aggregationFns }),
     [],
   );
-  filterFns = useMemo(() => ({ ...MRT_FilterFns, ...filterFns }), []);
-  sortingFns = useMemo(() => ({ ...MRT_SortingFns, ...sortingFns }), []);
+  filterFns = useMemo(
+    () => ({ ...MRT_FilterFns, ...filterFns }) as typeof filterFns,
+    [],
+  );
+  sortFns = useMemo(() => ({ ...MRT_SortFns, ...sortFns }), []);
   defaultColumn = useMemo(
     () => ({ ...MRT_DefaultColumn, ...defaultColumn }),
     [defaultColumn],
@@ -141,7 +144,7 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
     }),
     [defaultDisplayColumn],
   );
-  //cannot be changed after initialization
+  // cannot be changed after initialization
   [enableColumnVirtualization, enableRowVirtualization] = useMemo(
     () => [enableColumnVirtualization, enableRowVirtualization],
     [],
@@ -218,27 +221,37 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
     enableTableHead,
     enableToolbarInternalActions,
     enableTopToolbar,
+    features: {
+      ...stockFeatures,
+      ...((enableColumnFilters || enableGlobalFilter || enableFilters) &&
+      !manualFiltering
+        ? { filteredRowModel: createFilteredRowModel(), filterFns }
+        : {}),
+      ...(enableSorting && !manualSorting
+        ? { sortedRowModel: createSortedRowModel(), sortFns }
+        : {}),
+      ...(enablePagination && !manualPagination
+        ? { paginatedRowModel: createPaginatedRowModel() }
+        : {}),
+      ...(enableExpanding || enableGrouping
+        ? { expandedRowModel: createExpandedRowModel() }
+        : {}),
+      ...(enableGrouping && !manualGrouping
+        ? {
+            aggregationFns,
+            groupedRowModel: createGroupedRowModel(),
+          }
+        : {}),
+      ...(enableFacetedValues
+        ? {
+            facetedMinMaxValues: createFacetedMinMaxValues(),
+            facetedRowModel: createFacetedRowModel(),
+            facetedUniqueValues: createFacetedUniqueValues(),
+          }
+        : {}),
+    },
     filterFns,
-    getCoreRowModel: getCoreRowModel(),
-    getExpandedRowModel:
-      enableExpanding || enableGrouping ? getExpandedRowModel() : undefined,
-    getFacetedMinMaxValues: enableFacetedValues
-      ? getFacetedMinMaxValues()
-      : undefined,
-    getFacetedRowModel: enableFacetedValues ? getFacetedRowModel() : undefined,
-    getFacetedUniqueValues: enableFacetedValues
-      ? getFacetedUniqueValues()
-      : undefined,
-    getFilteredRowModel:
-      enableColumnFilters || enableGlobalFilter || enableFilters
-        ? getFilteredRowModel()
-        : undefined,
-    getGroupedRowModel: enableGrouping ? getGroupedRowModel() : undefined,
-    getPaginationRowModel: enablePagination
-      ? getPaginationRowModel()
-      : undefined,
-    getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
-    getSubRows: (row) => row?.subRows,
+    getSubRows: (row: TData) => (row as any)?.subRows,
     icons,
     layoutMode,
     localization,
@@ -257,7 +270,7 @@ export const useMRT_TableOptions: <TData extends MRT_RowData>(
     rowNumberDisplayMode,
     rowPinningDisplayMode,
     selectAllMode,
-    sortingFns,
+    sortFns,
     ...rest,
   } as MRT_DefinedTableOptions<TData>;
 };

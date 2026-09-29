@@ -38,6 +38,7 @@ const Example = () => {
     getRowId: (row) => row.email,
     initialState: {
       rowPinning: {
+        bottom: [],
         top: ['ereinger@mailinator.com'],
       },
       rowSelection: {

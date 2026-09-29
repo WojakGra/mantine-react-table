@@ -1,10 +1,10 @@
-import {
-  type MRT_ColumnDef,
-  type MRT_DefinedTableOptions,
-  type MRT_DisplayColumnIds,
-  type MRT_Localization,
-  type MRT_RowData,
-  type MRT_StatefulTableOptions,
+import type {
+  MRT_ColumnDef,
+  MRT_DefinedTableOptions,
+  MRT_DisplayColumnIds,
+  MRT_Localization,
+  MRT_RowData,
+  MRT_StatefulTableOptions,
 } from '../types';
 import { getAllLeafColumnDefs, getColumnId } from './column.utils';
 
@@ -23,7 +23,7 @@ export function defaultDisplayColumnProps<TData extends MRT_RowData>({
     tableOptions;
   return {
     ...defaultDisplayColumn,
-    header: header ? localization[header]! : '',
+    header: header ? localization[header] : '',
     size,
     ...displayColumnDefOptions?.[id],
     id,
@@ -103,7 +103,7 @@ export const getLeadingDisplayColumnIds = <TData extends MRT_RowData>(
       'mrt-row-expand',
     showRowSelectionColumn(tableOptions) && 'mrt-row-select',
     showRowNumbersColumn(tableOptions) && 'mrt-row-numbers',
-  ].filter(Boolean) as MRT_DisplayColumnIds[];
+  ].filter(Boolean) as Array<MRT_DisplayColumnIds>;
 
 export const getTrailingDisplayColumnIds = <TData extends MRT_RowData>(
   tableOptions: MRT_StatefulTableOptions<TData>,
@@ -116,7 +116,7 @@ export const getTrailingDisplayColumnIds = <TData extends MRT_RowData>(
       showRowExpandColumn(tableOptions) &&
       'mrt-row-expand',
     showRowSpacerColumn(tableOptions) && 'mrt-row-spacer',
-  ].filter(Boolean) as MRT_DisplayColumnIds[];
+  ].filter(Boolean) as Array<MRT_DisplayColumnIds>;
 
 export const getDefaultColumnOrderIds = <TData extends MRT_RowData>(
   tableOptions: MRT_StatefulTableOptions<TData>,
@@ -126,9 +126,9 @@ export const getDefaultColumnOrderIds = <TData extends MRT_RowData>(
     state: { columnOrder: currentColumnOrderIds = [] },
   } = tableOptions;
 
-  const leadingDisplayColIds: string[] =
+  const leadingDisplayColIds: Array<string> =
     getLeadingDisplayColumnIds(tableOptions);
-  const trailingDisplayColIds: string[] =
+  const trailingDisplayColIds: Array<string> =
     getTrailingDisplayColumnIds(tableOptions);
 
   const defaultColumnDefIds = getAllLeafColumnDefs(tableOptions.columns).map(

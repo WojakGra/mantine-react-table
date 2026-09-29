@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_TR: MRT_Localization = {
   actions: 'İşlemler',
@@ -11,11 +11,11 @@ export const MRT_Localization_TR: MRT_Localization = {
   clearSelection: 'Seçimi Temizle',
   clearSort: 'Sıralamayı Sıfırla',
   clickToCopy: 'Kopyala',
-  copy: 'Kopyala',
-  columnActions: 'Sütun İşlemleri',
-  copiedToClipboard: 'Panoya Kopyalandı',
   collapse: 'Daralt',
   collapseAll: 'Tümünü Daralt',
+  columnActions: 'Sütun İşlemleri',
+  copiedToClipboard: 'Panoya Kopyalandı',
+  copy: 'Kopyala',
   dropToGroupBy: '{column} İle Gruplandırmak İçin Bırakın',
   edit: 'Düzenle',
   expand: 'Genişlet',
@@ -34,9 +34,10 @@ export const MRT_Localization_TR: MRT_Localization = {
   filterFuzzy: 'Yaklaşık',
   filterGreaterThan: 'Büyüktür',
   filterGreaterThanOrEqualTo: 'Büyük Eşittir',
-  filterInNumberRange: 'Arasında',
   filterIncludesString: 'İçerir',
   filterIncludesStringSensitive: 'İçerir',
+  filteringByColumn: 'Filtre Modu - {filterType} {filterValue}',
+  filterInNumberRange: 'Arasında',
   filterLessThan: 'Küçüktür',
   filterLessThanOrEqualTo: 'Küçük Eşittir',
   filterMode: 'Filtre Modu: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_TR: MRT_Localization = {
   filterNotEquals: 'Eşit Değil',
   filterStartsWith: 'Başı',
   filterWeakEquals: 'Eşittir',
-  filteringByColumn: 'Filtre Modu - {filterType} {filterValue}',
   goToFirstPage: 'İlk Sayfaya Git',
   goToLastPage: 'Son Sayfaya Git',
   goToNextPage: 'Sonraki Sayfaya Git',
@@ -72,9 +72,9 @@ export const MRT_Localization_TR: MRT_Localization = {
   rowsPerPage: 'Sayfa Başına Satır',
   save: 'Kaydet',
   search: 'Ara',
+  select: 'Seç',
   selectedCountOfRowCountRowsSelected:
     '{rowCount} Satır Arasından {selectedCount} Adet Seçildi',
-  select: 'Seç',
   showAll: 'Tümünü Göster',
   showAllColumns: 'Bütün Sütunları Göster',
   showHideColumns: 'Sütunları Göster/Gizle',

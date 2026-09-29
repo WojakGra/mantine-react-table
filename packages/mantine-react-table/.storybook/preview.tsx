@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addons } from '@storybook/preview-api';
-import { Preview } from '@storybook/react';
-import { useDarkMode, DARK_MODE_EVENT_NAME } from 'storybook-dark-mode';
+
 import {
   Anchor,
   ColorSchemeScript,
@@ -11,23 +9,19 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
+
+import { type Preview } from '@storybook/react';
+import { ContextMenuProvider } from 'mantine-contextmenu';
+import { DARK_MODE_EVENT_NAME, useDarkMode } from 'storybook-dark-mode';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css'; //if using mantine date picker features
 import 'mantine-contextmenu/styles.css';
-import { ContextMenuProvider } from 'mantine-contextmenu';
+
+import { addons } from 'storybook/preview-api';
 
 const channel = addons.getChannel();
 
 const preview: Preview = {
-  parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
-    },
-  },
   decorators: [
     (Story, context) => {
       const [primaryColor, setPrimaryColor] = useState<string>('blue');
@@ -87,24 +81,24 @@ const preview: Preview = {
               <Stack>
                 <Text
                   style={{
-                    paddingBottom: '8px',
                     color: useDarkMode() ? '#fff' : '#666',
+                    paddingBottom: '8px',
                   }}
                 >
                   Looking for the main docs site? Click{' '}
                   <Anchor
-                    underline="always"
                     href="https://www.mantine-react-table.com"
-                    target="_blank"
                     rel="noopener"
+                    target="_blank"
+                    underline="always"
                   >
                     here.
                   </Anchor>
                 </Text>
                 <Text
                   style={{
-                    paddingBottom: '16px',
                     color: useDarkMode() ? '#fff' : '#666',
+                    paddingBottom: '16px',
                   }}
                 >
                   View source code below in the story tab on Canvas or the Show
@@ -113,10 +107,10 @@ const preview: Preview = {
                 </Text>
               </Stack>
               <Select
-                label="Primary Color"
                 data={mantineColors}
-                value={primaryColor}
+                label="Primary Color"
                 onChange={(value) => setPrimaryColor(value as string)}
+                value={primaryColor}
               />
             </Flex>
             <Story {...context} />
@@ -125,6 +119,15 @@ const preview: Preview = {
       );
     },
   ],
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
 };
 
 export default preview;

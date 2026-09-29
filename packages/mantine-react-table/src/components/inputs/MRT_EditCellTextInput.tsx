@@ -1,37 +1,42 @@
-import { type FocusEvent, type KeyboardEvent, useState } from 'react';
+import { useState } from 'react';
+import type { FocusEvent, KeyboardEvent } from 'react';
 
-import {
-  MultiSelect,
-  type MultiSelectProps,
-  Select,
-  type SelectProps,
-  TextInput,
-  type TextInputProps,
+import { MultiSelect, Select, TextInput } from '@mantine/core';
+import type {
+  MultiSelectProps,
+  SelectProps,
+  TextInputProps,
 } from '@mantine/core';
 
-import {
-  type HTMLPropsRef,
-  type MRT_Cell,
-  type MRT_CellValue,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  HTMLPropsRef,
+  MRT_Cell,
+  MRT_CellValue,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
-interface PropsTextInput<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends TextInputProps {
+interface PropsTextInput<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends TextInputProps {
   cell: MRT_Cell<TData, TValue>;
   table: MRT_TableInstance<TData>;
 }
 
-interface PropsSelect<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends SelectProps {
+interface PropsSelect<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends SelectProps {
   cell: MRT_Cell<TData, TValue>;
   table: MRT_TableInstance<TData>;
 }
 
-interface PropsMultiSelect<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends MultiSelectProps {
+interface PropsMultiSelect<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends MultiSelectProps {
   cell: MRT_Cell<TData, TValue>;
   table: MRT_TableInstance<TData>;
 }
@@ -46,7 +51,6 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
   ...rest
 }: PropsMultiSelect<TData> | PropsSelect<TData> | PropsTextInput<TData>) => {
   const {
-    getState,
     options: {
       createDisplayMode,
       editDisplayMode,
@@ -57,10 +61,11 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
     setCreatingRow,
     setEditingCell,
     setEditingRow,
+    state,
   } = table;
   const { column, row } = cell;
   const { columnDef } = column;
-  const { creatingRow, editingRow } = getState();
+  const { creatingRow, editingRow } = state;
 
   const isCreating = creatingRow?.id === row.id;
   const isEditing = editingRow?.id === row.id;
@@ -83,7 +88,7 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
   };
 
   const saveInputValueToRowCache = (newValue: null | string) => {
-    //@ts-ignore
+    // @ts-ignore
     row._valuesCache[column.id] = newValue;
     if (isCreating) {
       setCreatingRow(row);
@@ -135,11 +140,11 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
       <Select
         {...commonProps}
         searchable
-        value={value as any}
+        value={value}
         {...(selectProps as MRT_SelectProps)}
         onBlur={handleBlur}
         onChange={(value, option) => {
-          (selectProps as MRT_SelectProps).onChange?.(value as any, option);
+          (selectProps as MRT_SelectProps).onChange?.(value, option);
           setValue(value);
         }}
         onClick={(e) => {
@@ -149,7 +154,7 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
         ref={(node) => {
           if (node) {
             editInputRefs.current[cell.id] = node;
-            if (selectProps.ref) {
+            if (selectProps.ref && typeof selectProps.ref === 'object') {
               selectProps.ref.current = node;
             }
           }
@@ -167,7 +172,7 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
         {...(selectProps as MRT_MultiSelectProps)}
         onBlur={handleBlur}
         onChange={(newValue) => {
-          (selectProps as MRT_MultiSelectProps).onChange?.(value as any);
+          (selectProps as MRT_MultiSelectProps).onChange?.(value);
           setValue(newValue);
           // Save if not in focus, otherwise it will be handled by onBlur
           if (document.activeElement === editInputRefs.current[cell.id]) return;
@@ -180,7 +185,7 @@ export const MRT_EditCellTextInput = <TData extends MRT_RowData>({
         ref={(node) => {
           if (node) {
             editInputRefs.current[cell.id] = node;
-            if (selectProps.ref) {
+            if (selectProps.ref && typeof selectProps.ref === 'object') {
               selectProps.ref.current = node;
             }
           }

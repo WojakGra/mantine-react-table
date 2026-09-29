@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_DE: MRT_Localization = {
   actions: 'Aktionen',
@@ -11,11 +11,11 @@ export const MRT_Localization_DE: MRT_Localization = {
   clearSelection: 'Auswahl zurücksetzen',
   clearSort: 'Sortierung zurücksetzen',
   clickToCopy: 'Kopieren',
-  copy: 'Kopieren',
-  columnActions: 'Spalten-Aktionen',
-  copiedToClipboard: 'In die Zwischenablage kopiert',
   collapse: 'Einklappen',
   collapseAll: 'Alle einklappen',
+  columnActions: 'Spalten-Aktionen',
+  copiedToClipboard: 'In die Zwischenablage kopiert',
+  copy: 'Kopieren',
   dropToGroupBy: 'Ablegen zum Gruppieren nach {column}',
   edit: 'Editieren',
   expand: 'Erweitern',
@@ -34,9 +34,10 @@ export const MRT_Localization_DE: MRT_Localization = {
   filterFuzzy: 'Fuzzy',
   filterGreaterThan: 'Größer als',
   filterGreaterThanOrEqualTo: 'Größer als oder gleich',
-  filterInNumberRange: 'Zwischen',
   filterIncludesString: 'Enthält',
   filterIncludesStringSensitive: 'Enthält',
+  filteringByColumn: 'Filtern nach {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Zwischen',
   filterLessThan: 'Kleiner als',
   filterLessThanOrEqualTo: 'Kleiner als oder gleich',
   filterMode: 'Filtermodus: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_DE: MRT_Localization = {
   filterNotEquals: 'Nicht gleich',
   filterStartsWith: 'Beginnt mit',
   filterWeakEquals: 'Gleich',
-  filteringByColumn: 'Filtern nach {column} - {filterType} {filterValue}',
   goToFirstPage: 'Gehe zur ersten Seite',
   goToLastPage: 'Gehe zur letzten Seite',
   goToNextPage: 'Gehe zur nächsten Seite',
@@ -72,9 +72,9 @@ export const MRT_Localization_DE: MRT_Localization = {
   rowsPerPage: 'Zeilen pro Seite',
   save: 'Speichern',
   search: 'Suche',
+  select: 'Auswählen',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} von {rowCount} Zeile(n) ausgewählt',
-  select: 'Auswählen',
   showAll: 'Alle anzeigen',
   showAllColumns: 'Alle Spalten anzeigen',
   showHideColumns: 'Spalten ein-/ausblenden',

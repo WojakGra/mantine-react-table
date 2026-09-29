@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_ZH_HANT: MRT_Localization = {
   actions: '動作',
@@ -11,11 +11,11 @@ export const MRT_Localization_ZH_HANT: MRT_Localization = {
   clearSelection: '清除選擇',
   clearSort: '清除排序',
   clickToCopy: '點擊以複製',
-  copy: '複製',
   collapse: '折疊',
   collapseAll: '全部折疊',
   columnActions: '欄位動作',
   copiedToClipboard: '已複製至剪貼簿',
+  copy: '複製',
   dropToGroupBy: '拖放以按 {column} 分組',
   edit: '編輯',
   expand: '展開',
@@ -34,9 +34,10 @@ export const MRT_Localization_ZH_HANT: MRT_Localization = {
   filterFuzzy: '模糊搜索',
   filterGreaterThan: '大於',
   filterGreaterThanOrEqualTo: '大於等於',
-  filterInNumberRange: '介於',
   filterIncludesString: '包含',
   filterIncludesStringSensitive: '包含',
+  filteringByColumn: '正以 {column} 過濾：{filterType} {filterValue}',
+  filterInNumberRange: '介於',
   filterLessThan: '小於',
   filterLessThanOrEqualTo: '小於等於',
   filterMode: '過濾模式：{filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_ZH_HANT: MRT_Localization = {
   filterNotEquals: '不等於',
   filterStartsWith: '開首為',
   filterWeakEquals: '等於',
-  filteringByColumn: '正以 {column} 過濾：{filterType} {filterValue}',
   goToFirstPage: '到第一頁',
   goToLastPage: '到最後一頁',
   goToNextPage: '下一頁',
@@ -72,8 +72,8 @@ export const MRT_Localization_ZH_HANT: MRT_Localization = {
   rowsPerPage: '每頁數量',
   save: '儲存',
   search: '搜尋',
-  selectedCountOfRowCountRowsSelected: '已選擇橫列：{selectedCount}/{rowCount}',
   select: '選擇',
+  selectedCountOfRowCountRowsSelected: '已選擇橫列：{selectedCount}/{rowCount}',
   showAll: '顯示全部',
   showAllColumns: '顯示全部欄位',
   showHideColumns: '顯示/隱藏 欄位',

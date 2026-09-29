@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_CS: MRT_Localization = {
   actions: 'Akce',
@@ -11,11 +11,11 @@ export const MRT_Localization_CS: MRT_Localization = {
   clearSelection: 'Vyčistit výběr',
   clearSort: 'vyčistit řazení',
   clickToCopy: 'Kliknutím zkopírovat',
-  copy: 'Kopírovat',
   collapse: 'Sbalit',
   collapseAll: 'Sbalit vše',
   columnActions: 'Akce sloupce',
   copiedToClipboard: 'Zkopírovat do schránky',
+  copy: 'Kopírovat',
   dropToGroupBy: 'Upustit pro seskupení podle sloupce {column}',
   edit: 'Upravit',
   expand: 'Otevřít',
@@ -34,9 +34,11 @@ export const MRT_Localization_CS: MRT_Localization = {
   filterFuzzy: 'Podobné',
   filterGreaterThan: 'Větší než',
   filterGreaterThanOrEqualTo: 'Větší nebo rovno',
-  filterInNumberRange: 'Mezi',
   filterIncludesString: 'Obsahuje',
   filterIncludesStringSensitive: 'Obsahuje',
+  filteringByColumn:
+    'Filtrováno podle sloupce {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Mezi',
   filterLessThan: 'Menší než',
   filterLessThanOrEqualTo: 'Menší nebo rovno',
   filterMode: 'Režim filtru: {filterType}',
@@ -44,8 +46,6 @@ export const MRT_Localization_CS: MRT_Localization = {
   filterNotEquals: 'Nerovná se',
   filterStartsWith: 'Začíná na',
   filterWeakEquals: 'Rovná se',
-  filteringByColumn:
-    'Filtrováno podle sloupce {column} - {filterType} {filterValue}',
   goToFirstPage: 'První strana',
   goToLastPage: 'Poslední strana',
   goToNextPage: 'Další strana',
@@ -73,9 +73,9 @@ export const MRT_Localization_CS: MRT_Localization = {
   rowsPerPage: 'Řádek na stránce',
   save: 'Uložit',
   search: 'Hledat',
+  select: 'Vybrat',
   selectedCountOfRowCountRowsSelected:
     'Vybráno {selectedCount} z {rowCount} řádek',
-  select: 'Vybrat',
   showAll: 'Zobrazit vše',
   showAllColumns: 'Zobrazit všechny sloupce',
   showHideColumns: 'Zobrazit/Skrýt sloupce',

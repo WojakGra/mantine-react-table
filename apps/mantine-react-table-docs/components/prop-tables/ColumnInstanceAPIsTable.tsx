@@ -68,17 +68,20 @@ const ColumnInstanceAPIsTable = ({ onlyOptions }: Props) => {
     [],
   );
 
-  const [columnPinning, setColumnPinning] = useState({});
+  const [columnPinning, setColumnPinning] = useState<{
+    end: string[];
+    start: string[];
+  }>({ end: [], start: [] });
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (isDesktop) {
         setColumnPinning({
-          left: ['mrt-row-expand', 'mrt-row-numbers', 'columnInstanceAPI'],
-          right: ['link'],
+          start: ['mrt-row-expand', 'mrt-row-numbers', 'columnInstanceAPI'],
+          end: ['link'],
         });
       } else {
-        setColumnPinning({});
+        setColumnPinning({ end: [], start: [] });
       }
     }
   }, [isDesktop]);

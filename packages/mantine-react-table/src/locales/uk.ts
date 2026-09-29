@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_UK: MRT_Localization = {
   actions: 'Дії',
@@ -11,11 +11,11 @@ export const MRT_Localization_UK: MRT_Localization = {
   clearSelection: 'Скасувати вибір',
   clearSort: 'Очистити сортування',
   clickToCopy: 'Натисніть, щоб скопіювати',
-  copy: 'Копіювати',
   collapse: 'Згорнути',
   collapseAll: 'Згорнути все',
   columnActions: 'Дії стовпця',
   copiedToClipboard: 'Скопійовано до буферу обміну',
+  copy: 'Копіювати',
   dropToGroupBy: 'Перетягніть, щоб групувати по {column}',
   edit: 'Редагувати',
   expand: 'Розгорнути',
@@ -34,9 +34,10 @@ export const MRT_Localization_UK: MRT_Localization = {
   filterFuzzy: 'Нечіткий',
   filterGreaterThan: 'Більше ніж',
   filterGreaterThanOrEqualTo: 'Більше ніж або дорівнює',
-  filterInNumberRange: 'В діапазоні',
   filterIncludesString: 'Включає',
   filterIncludesStringSensitive: 'Включає (чутливо)',
+  filteringByColumn: 'Фільтрування по {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'В діапазоні',
   filterLessThan: 'Менше ніж',
   filterLessThanOrEqualTo: 'Менше ніж або дорівнює',
   filterMode: 'Режим фільтрації: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_UK: MRT_Localization = {
   filterNotEquals: 'Не дорівнює',
   filterStartsWith: 'Починається з',
   filterWeakEquals: 'Дорівнює',
-  filteringByColumn: 'Фільтрування по {column} - {filterType} {filterValue}',
   goToFirstPage: 'Перейти на першу сторінку',
   goToLastPage: 'Перейти на останню сторінку',
   goToNextPage: 'Перейти на наступну сторінку',
@@ -72,9 +72,9 @@ export const MRT_Localization_UK: MRT_Localization = {
   rowsPerPage: 'Рядків на сторінці:',
   save: 'Зберегти',
   search: 'Пошук',
+  select: 'Вибрати',
   selectedCountOfRowCountRowsSelected:
     'Вибрано {selectedCount} з {rowCount} рядків',
-  select: 'Вибрати',
   showAll: 'Показати все',
   showAllColumns: 'Показати всі стовпці',
   showHideColumns: 'Показати/приховати стовпці',

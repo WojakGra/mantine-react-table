@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_JA: MRT_Localization = {
   actions: '操作',
@@ -11,11 +11,11 @@ export const MRT_Localization_JA: MRT_Localization = {
   clearSelection: '選択を解除',
   clearSort: '並べ替えを解除',
   clickToCopy: 'クリックでコピー',
-  copy: 'コピー',
   collapse: '折りたたむ',
   collapseAll: '全て折りたたむ',
   columnActions: '操作',
   copiedToClipboard: 'クリップボードにコピーしました',
+  copy: 'コピー',
   dropToGroupBy: 'ドロップで{column}をグループ化',
   edit: '編集',
   expand: '展開',
@@ -34,9 +34,10 @@ export const MRT_Localization_JA: MRT_Localization = {
   filterFuzzy: 'あいまい検索',
   filterGreaterThan: 'より大きい',
   filterGreaterThanOrEqualTo: '以上',
-  filterInNumberRange: '間',
   filterIncludesString: '含む',
   filterIncludesStringSensitive: '含む',
+  filteringByColumn: '{column}によるフィルタリング - {filterType}{filterValue}',
+  filterInNumberRange: '間',
   filterLessThan: 'より少ない',
   filterLessThanOrEqualTo: '以下',
   filterMode: '検索モード:{filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_JA: MRT_Localization = {
   filterNotEquals: '不一致',
   filterStartsWith: 'で始まる',
   filterWeakEquals: '等しい',
-  filteringByColumn: '{column}によるフィルタリング - {filterType}{filterValue}',
   goToFirstPage: '最初のページへ移動',
   goToLastPage: '最後のページへ移動',
   goToNextPage: '次のページへ移動',
@@ -72,9 +72,9 @@ export const MRT_Localization_JA: MRT_Localization = {
   rowsPerPage: '表示件数',
   save: '保存',
   search: '検索',
+  select: '選択',
   selectedCountOfRowCountRowsSelected:
     '{rowCount}行中{selectedCount}行が選択されました',
-  select: '選択',
   showAll: '全て表示',
   showAllColumns: '全ての列を表示',
   showHideColumns: '列の表示状態',

@@ -1,13 +1,11 @@
-import { type Row } from '@tanstack/react-table';
-
-import {
-  type MRT_Column,
-  type MRT_ColumnDef,
-  type MRT_ColumnOrderState,
-  type MRT_DefinedColumnDef,
-  type MRT_DefinedTableOptions,
-  type MRT_FilterOption,
-  type MRT_RowData,
+import type {
+  MRT_Column,
+  MRT_ColumnDef,
+  MRT_ColumnOrderState,
+  MRT_DefinedColumnDef,
+  MRT_DefinedTableOptions,
+  MRT_FilterOption,
+  MRT_RowData,
 } from '../types';
 
 export const getColumnId = <TData extends MRT_RowData>(
@@ -16,10 +14,10 @@ export const getColumnId = <TData extends MRT_RowData>(
   columnDef.id ?? columnDef.accessorKey?.toString?.() ?? columnDef.header;
 
 export const getAllLeafColumnDefs = <TData extends MRT_RowData>(
-  columns: MRT_ColumnDef<TData>[],
-): MRT_ColumnDef<TData>[] => {
-  const allLeafColumnDefs: MRT_ColumnDef<TData>[] = [];
-  const getLeafColumns = (cols: MRT_ColumnDef<TData>[]) => {
+  columns: Array<MRT_ColumnDef<TData>>,
+): Array<MRT_ColumnDef<TData>> => {
+  const allLeafColumnDefs: Array<MRT_ColumnDef<TData>> = [];
+  const getLeafColumns = (cols: Array<MRT_ColumnDef<TData>>) => {
     cols.forEach((col) => {
       if (col.columns) {
         getLeafColumns(col.columns);
@@ -36,43 +34,29 @@ export const prepareColumns = <TData extends MRT_RowData>({
   columnDefs,
   tableOptions,
 }: {
-  columnDefs: MRT_ColumnDef<TData>[];
+  columnDefs: Array<MRT_ColumnDef<TData>>;
   tableOptions: MRT_DefinedTableOptions<TData>;
-}): MRT_DefinedColumnDef<TData>[] => {
+}): Array<MRT_DefinedColumnDef<TData>> => {
   const {
-    aggregationFns = {},
     defaultDisplayColumn,
     filterFns = {},
-    sortingFns = {},
+    sortFns = {},
     state: { columnFilterFns = {} } = {},
   } = tableOptions;
   return columnDefs.map((columnDef) => {
-    //assign columnId
+    // assign columnId
     if (!columnDef.id) columnDef.id = getColumnId(columnDef);
-    //assign columnDefType
+    // assign columnDefType
     if (!columnDef.columnDefType) columnDef.columnDefType = 'data';
     if (columnDef.columns?.length) {
       columnDef.columnDefType = 'group';
-      //recursively prepare columns if this is a group column
+      // recursively prepare columns if this is a group column
       columnDef.columns = prepareColumns({
         columnDefs: columnDef.columns,
         tableOptions,
       });
     } else if (columnDef.columnDefType === 'data') {
-      //assign aggregationFns if multiple aggregationFns are provided
-      if (Array.isArray(columnDef.aggregationFn)) {
-        const aggFns = columnDef.aggregationFn as string[];
-        columnDef.aggregationFn = (
-          columnId: string,
-          leafRows: Row<TData>[],
-          childRows: Row<TData>[],
-        ) =>
-          aggFns.map((fn) =>
-            aggregationFns[fn]?.(columnId, leafRows, childRows),
-          );
-      }
-
-      //assign filterFns
+      // assign filterFns
       if (Object.keys(filterFns).includes(columnFilterFns[columnDef.id])) {
         columnDef.filterFn =
           filterFns[columnFilterFns[columnDef.id]] ?? filterFns.fuzzy;
@@ -80,10 +64,9 @@ export const prepareColumns = <TData extends MRT_RowData>({
           columnFilterFns[columnDef.id];
       }
 
-      //assign sortingFns
-      if (Object.keys(sortingFns).includes(columnDef.sortingFn as string)) {
-        // @ts-ignore
-        columnDef.sortingFn = sortingFns[columnDef.sortingFn];
+      // assign sortFns
+      if (Object.keys(sortFns).includes(columnDef.sortFn as string)) {
+        columnDef.sortFn = sortFns[columnDef.sortFn as string];
       }
     } else if (columnDef.columnDefType === 'display') {
       columnDef = {
@@ -91,8 +74,15 @@ export const prepareColumns = <TData extends MRT_RowData>({
         ...columnDef,
       };
     }
+    if (
+      columnDef.accessorFn &&
+      (tableOptions.state?.isLoading || tableOptions.state?.showSkeletons)
+    ) {
+      // skeleton rows are blank objects, so don't run user accessors on them
+      columnDef = { ...columnDef, accessorFn: () => null };
+    }
     return columnDef;
-  }) as MRT_DefinedColumnDef<TData>[];
+  }) as Array<MRT_DefinedColumnDef<TData>>;
 };
 
 export const reorderColumn = <TData extends MRT_RowData>(

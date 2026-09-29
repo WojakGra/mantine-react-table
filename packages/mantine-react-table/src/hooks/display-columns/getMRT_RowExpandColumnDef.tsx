@@ -1,13 +1,14 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { Flex, Tooltip } from '@mantine/core';
 
 import { MRT_ExpandAllButton } from '../../components/buttons/MRT_ExpandAllButton';
 import { MRT_ExpandButton } from '../../components/buttons/MRT_ExpandButton';
-import {
-  type MRT_ColumnDef,
-  type MRT_RowData,
-  type MRT_StatefulTableOptions,
+
+import type {
+  MRT_ColumnDef,
+  MRT_RowData,
+  MRT_StatefulTableOptions,
 } from '../../types';
 import { defaultDisplayColumnProps } from '../../utils/displayColumn.utils';
 

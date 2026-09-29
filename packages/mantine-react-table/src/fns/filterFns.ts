@@ -1,18 +1,12 @@
-import {
-  type RankingInfo,
-  rankings,
-  rankItem,
-} from '@tanstack/match-sorter-utils';
-import { filterFns, type Row } from '@tanstack/react-table';
+import { rankings, rankItem } from '@tanstack/match-sorter-utils';
+import type { RankingInfo } from '@tanstack/match-sorter-utils';
+import { filterFns } from '@tanstack/react-table';
+import type { Row, StockFeatures } from '@tanstack/react-table';
 
-import {
-  type MRT_FilterOption,
-  type MRT_Localization,
-  type MRT_RowData,
-} from '../types';
+import type { MRT_FilterOption, MRT_Localization, MRT_RowData } from '../types';
 
 const fuzzy = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   columnId: string,
   filterValue: number | string,
   addMeta: (item: RankingInfo) => void,
@@ -27,7 +21,7 @@ const fuzzy = <TData extends MRT_RowData>(
 fuzzy.autoRemove = (val: any) => !val;
 
 const contains = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -41,7 +35,7 @@ const contains = <TData extends MRT_RowData>(
 contains.autoRemove = (val: any) => !val;
 
 const startsWith = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -55,7 +49,7 @@ const startsWith = <TData extends MRT_RowData>(
 startsWith.autoRemove = (val: any) => !val;
 
 const endsWith = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -69,7 +63,7 @@ const endsWith = <TData extends MRT_RowData>(
 endsWith.autoRemove = (val: any) => !val;
 
 const equals = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -79,7 +73,7 @@ const equals = <TData extends MRT_RowData>(
 equals.autoRemove = (val: any) => !val;
 
 const notEquals = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -89,7 +83,7 @@ const notEquals = <TData extends MRT_RowData>(
 notEquals.autoRemove = (val: any) => !val;
 
 const greaterThan = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -101,7 +95,7 @@ const greaterThan = <TData extends MRT_RowData>(
 greaterThan.autoRemove = (val: any) => !val;
 
 const greaterThanOrEqualTo = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) => equals(row, id, filterValue) || greaterThan(row, id, filterValue);
@@ -109,7 +103,7 @@ const greaterThanOrEqualTo = <TData extends MRT_RowData>(
 greaterThanOrEqualTo.autoRemove = (val: any) => !val;
 
 const lessThan = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) =>
@@ -121,7 +115,7 @@ const lessThan = <TData extends MRT_RowData>(
 lessThan.autoRemove = (val: any) => !val;
 
 const lessThanOrEqualTo = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValue: number | string,
 ) => equals(row, id, filterValue) || lessThan(row, id, filterValue);
@@ -129,37 +123,37 @@ const lessThanOrEqualTo = <TData extends MRT_RowData>(
 lessThanOrEqualTo.autoRemove = (val: any) => !val;
 
 const between = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValues: [number | string, number | string],
 ) =>
-  ((['', undefined] as any[]).includes(filterValues[0]) ||
+  ((['', undefined] as Array<any>).includes(filterValues[0]) ||
     greaterThan(row, id, filterValues[0])) &&
   ((!isNaN(+filterValues[0]) &&
     !isNaN(+filterValues[1]) &&
     +filterValues[0] > +filterValues[1]) ||
-    (['', undefined] as any[]).includes(filterValues[1]) ||
+    (['', undefined] as Array<any>).includes(filterValues[1]) ||
     lessThan(row, id, filterValues[1]));
 
 between.autoRemove = (val: any) => !val;
 
 const betweenInclusive = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   filterValues: [number | string, number | string],
 ) =>
-  ((['', undefined] as any[]).includes(filterValues[0]) ||
+  ((['', undefined] as Array<any>).includes(filterValues[0]) ||
     greaterThanOrEqualTo(row, id, filterValues[0])) &&
   ((!isNaN(+filterValues[0]) &&
     !isNaN(+filterValues[1]) &&
     +filterValues[0] > +filterValues[1]) ||
-    (['', undefined] as any[]).includes(filterValues[1]) ||
+    (['', undefined] as Array<any>).includes(filterValues[1]) ||
     lessThanOrEqualTo(row, id, filterValues[1]));
 
 betweenInclusive.autoRemove = (val: any) => !val;
 
 const empty = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   _filterValue: number | string,
 ) => !row.getValue<number | string>(id)?.toString().trim();
@@ -167,7 +161,7 @@ const empty = <TData extends MRT_RowData>(
 empty.autoRemove = (val: any) => !val;
 
 const notEmpty = <TData extends MRT_RowData>(
-  row: Row<TData>,
+  row: Row<StockFeatures, TData>,
   id: string,
   _filterValue: number | string,
 ) => !!row.getValue<number | string>(id)?.toString().trim();

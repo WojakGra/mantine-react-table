@@ -1,12 +1,7 @@
 import classes from './MRT_ShowHideColumnsMenuItems.module.css';
 
-import {
-  type Dispatch,
-  type DragEvent,
-  type SetStateAction,
-  useRef,
-  useState,
-} from 'react';
+import { useRef, useState } from 'react';
+import type { Dispatch, DragEvent, SetStateAction } from 'react';
 
 import {
   Box,
@@ -17,19 +12,20 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 
-import {
-  type MRT_CellValue,
-  type MRT_Column,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
-import { reorderColumn } from '../../utils/column.utils';
-import { dataVariable, getPrimaryColor } from '../../utils/style.utils';
 import { MRT_ColumnPinningButtons } from '../buttons/MRT_ColumnPinningButtons';
 import { MRT_GrabHandleButton } from '../buttons/MRT_GrabHandleButton';
 
+import type {
+  MRT_CellValue,
+  MRT_Column,
+  MRT_RowData,
+  MRT_TableInstance,
+} from '../../types';
+import { reorderColumn } from '../../utils/column.utils';
+import { dataVariable, getPrimaryColor } from '../../utils/style.utils';
+
 interface Props<TData extends MRT_RowData, TValue = MRT_CellValue> {
-  allColumns: MRT_Column<TData>[];
+  allColumns: Array<MRT_Column<TData>>;
   column: MRT_Column<TData, TValue>;
   hoveredColumn: MRT_Column<TData> | null;
   setHoveredColumn: Dispatch<SetStateAction<MRT_Column<TData> | null>>;
@@ -45,7 +41,6 @@ export const MRT_ShowHideColumnsMenuItems = <TData extends MRT_RowData>({
 }: Props<TData>) => {
   const theme = useMantineTheme();
   const {
-    getState,
     options: {
       enableColumnOrdering,
       enableColumnPinning,
@@ -53,8 +48,9 @@ export const MRT_ShowHideColumnsMenuItems = <TData extends MRT_RowData>({
       localization,
     },
     setColumnOrder,
+    state,
   } = table;
-  const { columnOrder } = getState();
+  const { columnOrder } = state;
   const { columnDef } = column;
   const { columnDefType } = columnDef;
 
@@ -106,7 +102,7 @@ export const MRT_ShowHideColumnsMenuItems = <TData extends MRT_RowData>({
         className={classes.root}
         component="span"
         onDragEnter={handleDragEnter}
-        ref={menuItemRef as any}
+        ref={menuItemRef}
         style={{
           '--_column-depth': `${(column.depth + 0.5) * 2}rem`,
           '--_hover-color': getPrimaryColor(theme),

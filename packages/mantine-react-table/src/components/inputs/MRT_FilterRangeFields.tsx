@@ -2,15 +2,12 @@ import clsx from 'clsx';
 
 import classes from './MRT_FilterRangeFields.module.css';
 
-import { Box, type BoxProps } from '@mantine/core';
+import { Box } from '@mantine/core';
+import type { BoxProps } from '@mantine/core';
 
 import { MRT_FilterTextInput } from './MRT_FilterTextInput';
 
-import {
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Header, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends BoxProps {
   header: MRT_Header<TData>;

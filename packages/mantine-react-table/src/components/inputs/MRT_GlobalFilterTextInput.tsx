@@ -4,19 +4,14 @@ import classes from './MRT_GlobalFilterTextInput.module.css';
 
 import { useEffect, useRef, useState } from 'react';
 
-import {
-  ActionIcon,
-  Collapse,
-  Menu,
-  TextInput,
-  type TextInputProps,
-  Tooltip,
-} from '@mantine/core';
+import { ActionIcon, Collapse, Menu, TextInput, Tooltip } from '@mantine/core';
+import type { TextInputProps } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 
-import { type MRT_RowData, type MRT_TableInstance } from '../../types';
-import { parseFromValuesOrFunc } from '../../utils/utils';
 import { MRT_FilterOptionMenu } from '../menus/MRT_FilterOptionMenu';
+
+import type { MRT_RowData, MRT_TableInstance } from '../../types';
+import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends TextInputProps {
   table: MRT_TableInstance<TData>;
@@ -27,7 +22,6 @@ export const MRT_GlobalFilterTextInput = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       enableGlobalFilterModes,
       icons: { IconSearch, IconX },
@@ -38,8 +32,9 @@ export const MRT_GlobalFilterTextInput = <TData extends MRT_RowData>({
     },
     refs: { searchInputRef },
     setGlobalFilter,
+    state,
   } = table;
-  const { globalFilter, showGlobalFilter } = getState();
+  const { globalFilter, showGlobalFilter } = state;
 
   const textFieldProps = {
     ...parseFromValuesOrFunc(mantineSearchTextInputProps, {
@@ -77,7 +72,7 @@ export const MRT_GlobalFilterTextInput = <TData extends MRT_RowData>({
   }, [globalFilter]);
 
   return (
-    <Collapse className={classes.collapse} in={showGlobalFilter}>
+    <Collapse className={classes.collapse} expanded={showGlobalFilter}>
       {enableGlobalFilterModes && (
         <Menu withinPortal>
           <Menu.Target>

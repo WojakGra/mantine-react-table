@@ -47,7 +47,7 @@ const ExpandingExamples = ({ isPage = false }) => {
           <CustomHeadlessExample showTopRow={isPage} />
         </Tabs.Panel>
         <Tabs.Panel value="expanding-tree">
-          <ExpandingTreeExample showTopRow={isPage} />
+          <ExpandingTreeExample />
         </Tabs.Panel>
       </Tabs>
     </Box>

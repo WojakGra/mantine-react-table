@@ -2,24 +2,16 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableHeadCellFilterLabel.module.css';
 
-import { type MouseEvent, useState } from 'react';
+import { useState } from 'react';
+import type { MouseEvent } from 'react';
 
-import {
-  ActionIcon,
-  type ActionIconProps,
-  Popover,
-  Tooltip,
-  Transition,
-} from '@mantine/core';
+import { ActionIcon, Popover, Tooltip, Transition } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
 import { MRT_TableHeadCellFilterContainer } from './MRT_TableHeadCellFilterContainer';
 
 import { localizedFilterOption } from '../../fns/filterFns';
-import {
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Header, MRT_RowData, MRT_TableInstance } from '../../types';
 import { dataVariable } from '../../utils/style.utils';
 
 interface Props<TData extends MRT_RowData> extends ActionIconProps {

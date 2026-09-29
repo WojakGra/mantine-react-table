@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_BG: MRT_Localization = {
   actions: 'Действия',
@@ -11,11 +11,11 @@ export const MRT_Localization_BG: MRT_Localization = {
   clearSelection: 'Изчисти избора',
   clearSort: 'Изчисти сортирането',
   clickToCopy: 'Кликни, за да копираш',
-  copy: 'Копирай',
   collapse: 'Свий',
   collapseAll: 'Свий всички',
   columnActions: 'Действия за колони',
   copiedToClipboard: 'Копирано в клипборда',
+  copy: 'Копирай',
   dropToGroupBy: 'Плъзни, за да групираш по {column}',
   edit: 'Редактирай',
   expand: 'Разшири',
@@ -34,9 +34,10 @@ export const MRT_Localization_BG: MRT_Localization = {
   filterFuzzy: 'Размито',
   filterGreaterThan: 'По-голямо от',
   filterGreaterThanOrEqualTo: 'По-голямо или равно на',
-  filterInNumberRange: 'Между',
   filterIncludesString: 'Съдържа',
   filterIncludesStringSensitive: 'Съдържа',
+  filteringByColumn: 'Филтриране по {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Между',
   filterLessThan: 'По-малко от',
   filterLessThanOrEqualTo: 'По-малко или равно на',
   filterMode: 'Режим на филтъра: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_BG: MRT_Localization = {
   filterNotEquals: 'Различно',
   filterStartsWith: 'Започва с',
   filterWeakEquals: 'Равно',
-  filteringByColumn: 'Филтриране по {column} - {filterType} {filterValue}',
   goToFirstPage: 'Към първа страница',
   goToLastPage: 'Към последна страница',
   goToNextPage: 'Към следваща страница',
@@ -72,9 +72,9 @@ export const MRT_Localization_BG: MRT_Localization = {
   rowsPerPage: 'Редове на страница',
   save: 'Запази',
   search: 'Търси',
+  select: 'Избери',
   selectedCountOfRowCountRowsSelected:
     'Избрани {selectedCount} от {rowCount} ред(ове)',
-  select: 'Избери',
   showAll: 'Покажи всички',
   showAllColumns: 'Покажи всички колони',
   showHideColumns: 'Покажи/Скрий колони',

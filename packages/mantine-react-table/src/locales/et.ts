@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_ET: MRT_Localization = {
   actions: 'Toimingud',
@@ -11,11 +11,11 @@ export const MRT_Localization_ET: MRT_Localization = {
   clearSelection: 'Tühjenda valik',
   clearSort: 'Tühjenda sorteerimine',
   clickToCopy: 'Klõpsa kopeerimiseks',
-  copy: 'Kopeeri',
   collapse: 'Ahenda',
   collapseAll: 'Ahenda kõik',
   columnActions: 'Veeru toimingud',
   copiedToClipboard: 'Kopeeritud lõikelauale',
+  copy: 'Kopeeri',
   dropToGroupBy: 'Lohista siia rühmitamiseks veeru {column} järgi',
   edit: 'Muuda',
   expand: 'Laienda',
@@ -34,9 +34,11 @@ export const MRT_Localization_ET: MRT_Localization = {
   filterFuzzy: 'Hägune',
   filterGreaterThan: 'Suurem kui',
   filterGreaterThanOrEqualTo: 'Suurem või võrdne',
-  filterInNumberRange: 'Vahemikus',
   filterIncludesString: 'Sisaldab',
   filterIncludesStringSensitive: 'Sisaldab',
+  filteringByColumn:
+    'Filtreeritakse veeru {column} järgi - {filterType} {filterValue}',
+  filterInNumberRange: 'Vahemikus',
   filterLessThan: 'Väiksem kui',
   filterLessThanOrEqualTo: 'Väiksem või võrdne',
   filterMode: 'Filtri režiim: {filterType}',
@@ -44,8 +46,6 @@ export const MRT_Localization_ET: MRT_Localization = {
   filterNotEquals: 'Ei ole võrdne',
   filterStartsWith: 'Algab',
   filterWeakEquals: 'On võrdne',
-  filteringByColumn:
-    'Filtreeritakse veeru {column} järgi - {filterType} {filterValue}',
   goToFirstPage: 'Mine esimesele lehele',
   goToLastPage: 'Mine viimasele lehele',
   goToNextPage: 'Mine järgmisele lehele',
@@ -73,9 +73,9 @@ export const MRT_Localization_ET: MRT_Localization = {
   rowsPerPage: 'Ridu leheküljel',
   save: 'Salvesta',
   search: 'Otsi',
+  select: 'Vali',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount}/{rowCount} rida valitud',
-  select: 'Vali',
   showAll: 'Näita kõiki',
   showAllColumns: 'Näita kõiki veerge',
   showHideColumns: 'Näita/peida veerge',

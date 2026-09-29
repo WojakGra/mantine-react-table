@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_DA: MRT_Localization = {
   actions: 'Handlinger',
@@ -11,11 +11,11 @@ export const MRT_Localization_DA: MRT_Localization = {
   clearSelection: 'Ryd valg',
   clearSort: 'Ryd sortering',
   clickToCopy: 'Tryk for at kopiere',
-  copy: 'Kopier',
   collapse: 'Luk',
   collapseAll: 'Luk alle',
   columnActions: 'Kolonnehandlinger',
   copiedToClipboard: 'Gemt i udklipsholder',
+  copy: 'Kopier',
   dropToGroupBy: 'Slip for at gruppere efter {column}',
   edit: 'Rediger',
   expand: 'Udvid',
@@ -34,9 +34,10 @@ export const MRT_Localization_DA: MRT_Localization = {
   filterFuzzy: 'Fuzzy',
   filterGreaterThan: 'Større End',
   filterGreaterThanOrEqualTo: 'Større End Eller Lig Med',
-  filterInNumberRange: 'Mellem',
   filterIncludesString: 'Indeholder',
   filterIncludesStringSensitive: 'Indeholder',
+  filteringByColumn: 'Filtrerer efter {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Mellem',
   filterLessThan: 'Mindre End',
   filterLessThanOrEqualTo: 'Mindre End Eller Lig Med',
   filterMode: 'Filtertilstand: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_DA: MRT_Localization = {
   filterNotEquals: 'Forskellig Fra',
   filterStartsWith: 'Begynder Med',
   filterWeakEquals: 'Lig Med',
-  filteringByColumn: 'Filtrerer efter {column} - {filterType} {filterValue}',
   goToFirstPage: 'Gå til første side',
   goToLastPage: 'Gå til sidste side',
   goToNextPage: 'Gå til næste side',
@@ -72,9 +72,9 @@ export const MRT_Localization_DA: MRT_Localization = {
   rowsPerPage: 'Rækker per side',
   save: 'Gem',
   search: 'Søg',
+  select: 'Vælg',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} af {rowCount} række(r) valgt',
-  select: 'Vælg',
   showAll: 'Vis alt',
   showAllColumns: 'Vis alle kolonner',
   showHideColumns: 'Vis/Skjul kolonner',

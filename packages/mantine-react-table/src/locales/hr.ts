@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_HR: MRT_Localization = {
   actions: 'Radnje',
@@ -11,11 +11,11 @@ export const MRT_Localization_HR: MRT_Localization = {
   clearSelection: 'Očisti odabir',
   clearSort: 'Očisti sortiranje',
   clickToCopy: 'Klikni za kopiranje',
-  copy: 'Kopiraj',
   collapse: 'Sažmi',
   collapseAll: 'Sažmi sve',
   columnActions: 'Radnje s stupcima',
   copiedToClipboard: 'Kopirano u međuspremnik',
+  copy: 'Kopiraj',
   dropToGroupBy: 'Ispusti za grupiranje po {column}',
   edit: 'Uredi',
   expand: 'Proširi',
@@ -34,9 +34,10 @@ export const MRT_Localization_HR: MRT_Localization = {
   filterFuzzy: 'Maglovito',
   filterGreaterThan: 'Veće od',
   filterGreaterThanOrEqualTo: 'Veće od ili jednako',
-  filterInNumberRange: 'Između',
   filterIncludesString: 'Sadrži',
   filterIncludesStringSensitive: 'Sadrži',
+  filteringByColumn: 'Filtriranje po {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Između',
   filterLessThan: 'Manje od',
   filterLessThanOrEqualTo: 'Manje od ili jednako',
   filterMode: 'Način filtriranja: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_HR: MRT_Localization = {
   filterNotEquals: 'Nije jednako',
   filterStartsWith: 'Počinje s',
   filterWeakEquals: 'Jednako',
-  filteringByColumn: 'Filtriranje po {column} - {filterType} {filterValue}',
   goToFirstPage: 'Idi na prvu stranicu',
   goToLastPage: 'Idi na zadnju stranicu',
   goToNextPage: 'Idi na sljedeću stranicu',
@@ -72,9 +72,9 @@ export const MRT_Localization_HR: MRT_Localization = {
   rowsPerPage: 'Redaka po stranici',
   save: 'Spremi',
   search: 'Pretraži',
+  select: 'Odaberi',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} od {rowCount} odabranih redaka',
-  select: 'Odaberi',
   showAll: 'Prikaži sve',
   showAllColumns: 'Prikaži sve stupce',
   showHideColumns: 'Prikaži/sakrij stupce',

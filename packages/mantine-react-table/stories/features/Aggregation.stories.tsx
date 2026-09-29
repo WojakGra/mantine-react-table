@@ -1,10 +1,6 @@
 import { Box, Stack } from '@mantine/core';
 
-import {
-  MantineReactTable,
-  MRT_AggregationFns,
-  type MRT_ColumnDef,
-} from '../../src';
+import { MantineReactTable, type MRT_ColumnDef } from '../../src';
 
 import { faker } from '@faker-js/faker';
 import { type Meta } from '@storybook/react';
@@ -163,7 +159,7 @@ export const MultiAggregationPerColumn = () => (
             Min by{' '}
             {table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header}:{' '}
             <Box style={{ color: 'green', fontWeight: 'bold' }}>
-              {cell.getValue<[number, number]>()[0]}
+              {cell.getValue<{ max: number; min: number }>().min}
             </Box>
             <br />
             Max by{' '}
@@ -171,15 +167,12 @@ export const MultiAggregationPerColumn = () => (
               table.getColumn(cell.row.groupingColumnId ?? '').columnDef.header
             }:{' '}
             <Box style={{ color: 'green', fontWeight: 'bold' }}>
-              {cell.getValue<[number, number]>()[1]}
+              {cell.getValue<{ max: number; min: number }>().max}
             </Box>
           </>
         ),
         //manually set multiple aggregation functions
-        aggregationFn: (columnId, leafRows: any, childRows: any) => [
-          MRT_AggregationFns.min(columnId, leafRows, childRows),
-          MRT_AggregationFns.max(columnId, leafRows, childRows),
-        ],
+        aggregationFn: ['min', 'max'],
         Footer: () => (
           <Stack>
             Average Age:

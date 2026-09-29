@@ -2,45 +2,35 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableBodyCell.module.css';
 
-import {
-  type CSSProperties,
-  type DragEvent,
-  memo,
-  type MouseEvent,
-  type RefObject,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
+import type { CSSProperties, DragEvent, MouseEvent, RefObject } from 'react';
 
-import {
-  Skeleton,
-  TableTd,
-  type TableTdProps,
-  useDirection,
-} from '@mantine/core';
+import { Skeleton, TableTd, useDirection } from '@mantine/core';
+import type { TableTdProps } from '@mantine/core';
 
+import { MRT_CopyButton } from '../buttons/MRT_CopyButton';
+import { MRT_EditCellTextInput } from '../inputs/MRT_EditCellTextInput';
 import { MRT_TableBodyCellValue } from './MRT_TableBodyCellValue';
 
-import {
-  type MRT_Cell,
-  type MRT_CellValue,
-  type MRT_RowData,
-  type MRT_TableInstance,
-  type MRT_VirtualItem,
+import type {
+  MRT_Cell,
+  MRT_CellValue,
+  MRT_RowData,
+  MRT_TableInstance,
+  MRT_VirtualItem,
 } from '../../types';
 import { parseCSSVarId } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { MRT_CopyButton } from '../buttons/MRT_CopyButton';
-import { MRT_EditCellTextInput } from '../inputs/MRT_EditCellTextInput';
 
-interface Props<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends TableTdProps {
+interface Props<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends TableTdProps {
   cell: MRT_Cell<TData, TValue>;
   numRows?: number;
   renderedColumnIndex?: number;
   renderedRowIndex?: number;
-  rowRef: RefObject<HTMLTableRowElement>;
+  rowRef: RefObject<HTMLTableRowElement | null>;
   table: MRT_TableInstance<TData>;
   virtualCell?: MRT_VirtualItem;
 }
@@ -58,7 +48,6 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
   const direction = useDirection();
 
   const {
-    getState,
     options: {
       columnResizeDirection,
       columnResizeMode,
@@ -76,9 +65,10 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
     refs: { editInputRefs },
     setEditingCell,
     setHoveredColumn,
+    state,
   } = table;
   const {
-    columnSizingInfo,
+    columnResizing,
     creatingRow,
     density,
     draggingColumn,
@@ -87,7 +77,7 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
     hoveredColumn,
     isLoading,
     showSkeletons,
-  } = getState();
+  } = state;
   const { column, row } = cell;
   const { columnDef } = column;
   const { columnDefType } = columnDef;
@@ -257,21 +247,21 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
     <TableTd
       data-column-pinned={isColumnPinned || undefined}
       data-dragging-column={isDraggingColumn || undefined}
-      data-first-right-pinned={
-        (isColumnPinned === 'right' &&
-          column.getIsFirstColumn(isColumnPinned)) ||
+      data-first-end-pinned={
+        (isColumnPinned === 'end' && column.getIsFirstColumn(isColumnPinned)) ||
         undefined
       }
       data-hovered-column-target={isHoveredColumn || undefined}
       data-index={renderedColumnIndex}
-      data-last-left-pinned={
-        (isColumnPinned === 'left' && column.getIsLastColumn(isColumnPinned)) ||
+      data-last-row={renderedRowIndex === numRows - 1 || undefined}
+      data-last-start-pinned={
+        (isColumnPinned === 'start' &&
+          column.getIsLastColumn(isColumnPinned)) ||
         undefined
       }
-      data-last-row={renderedRowIndex === numRows - 1 || undefined}
       data-resizing={
         (columnResizeMode === 'onChange' &&
-          columnSizingInfo?.isResizingColumn === column.id &&
+          columnResizing?.isResizingColumn === column.id &&
           columnResizeDirection) ||
         undefined
       }
@@ -279,13 +269,13 @@ export const MRT_TableBodyCell = <TData extends MRT_RowData>({
       __vars={{
         '--mrt-cell-align':
           tableCellProps.align ?? (direction.dir === 'rtl' ? 'right' : 'left'),
-        '--mrt-table-cell-left':
-          isColumnPinned === 'left'
-            ? `${column.getStart(isColumnPinned)}`
-            : undefined,
-        '--mrt-table-cell-right':
-          isColumnPinned === 'right'
+        '--mrt-table-cell-end':
+          isColumnPinned === 'end'
             ? `${column.getAfter(isColumnPinned)}`
+            : undefined,
+        '--mrt-table-cell-start':
+          isColumnPinned === 'start'
+            ? `${column.getStart(isColumnPinned)}`
             : undefined,
         ...tableCellProps.__vars,
       }}

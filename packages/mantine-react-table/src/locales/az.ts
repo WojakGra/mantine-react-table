@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_AZ: MRT_Localization = {
   actions: 'Əməliyyatlar',
@@ -11,11 +11,11 @@ export const MRT_Localization_AZ: MRT_Localization = {
   clearSelection: 'Seçimi təmizlə',
   clearSort: 'Sıralamanı sıfırla',
   clickToCopy: 'Köçür',
-  copy: 'Köçür',
-  columnActions: 'Sütun Əməliyyatları',
-  copiedToClipboard: 'Panelə Köçürüldü',
   collapse: 'Daralt',
   collapseAll: 'Hamısını Daralt',
+  columnActions: 'Sütun Əməliyyatları',
+  copiedToClipboard: 'Panelə Köçürüldü',
+  copy: 'Köçür',
   dropToGroupBy: '{column} İlə Qruplandırmaq Üçün Buraxın',
   edit: 'Düzəliş Et',
   expand: 'Genişlət',
@@ -34,9 +34,10 @@ export const MRT_Localization_AZ: MRT_Localization = {
   filterFuzzy: 'Təxmini',
   filterGreaterThan: 'Böyükdür',
   filterGreaterThanOrEqualTo: 'Böyük Bərabərdir',
-  filterInNumberRange: 'Arasında',
   filterIncludesString: 'Daxil',
   filterIncludesStringSensitive: 'Daxil',
+  filteringByColumn: 'Filter Rejimi - {filterType} {filterValue}',
+  filterInNumberRange: 'Arasında',
   filterLessThan: 'Kiçikdir',
   filterLessThanOrEqualTo: 'Kiçik Bərabərdir',
   filterMode: 'Filter Rejimi: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_AZ: MRT_Localization = {
   filterNotEquals: 'Bərabər Deyil',
   filterStartsWith: 'Başlanğıcı',
   filterWeakEquals: 'Bərabərdir',
-  filteringByColumn: 'Filter Rejimi - {filterType} {filterValue}',
   goToFirstPage: 'İlk Səhifəyə Get',
   goToLastPage: 'Son Səhifəyə Get',
   goToNextPage: 'Sonrakı Səhifəyə Get',
@@ -72,9 +72,9 @@ export const MRT_Localization_AZ: MRT_Localization = {
   rowsPerPage: 'Səhifə Başına Sətirlər',
   save: 'Yadda Saxla',
   search: 'Axtar',
+  select: 'Seç',
   selectedCountOfRowCountRowsSelected:
     '{rowCount} Sətir Arasında {selectedCount} Ədəd Seçildi',
-  select: 'Seç',
   showAll: 'Hamısını Göstər',
   showAllColumns: 'Bütün Sütunları Göstər',
   showHideColumns: 'Sütunları Göstər/Gizlə',

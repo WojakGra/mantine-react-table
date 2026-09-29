@@ -1,25 +1,35 @@
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 
-import { useReactTable } from '@tanstack/react-table';
+import { useCreateAtom, useSelector } from '@tanstack/react-store';
+import { useTable } from '@tanstack/react-table';
 
-import {
-  type MRT_Cell,
-  type MRT_Column,
-  type MRT_ColumnDef,
-  type MRT_ColumnFilterFnsState,
-  type MRT_ColumnOrderState,
-  type MRT_ColumnSizingInfoState,
-  type MRT_DefinedTableOptions,
-  type MRT_DensityState,
-  type MRT_FilterOption,
-  type MRT_GroupingState,
-  type MRT_PaginationState,
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_StatefulTableOptions,
-  type MRT_TableInstance,
-  type MRT_TableState,
-  type MRT_Updater,
+import { getMRT_RowActionsColumnDef } from './display-columns/getMRT_RowActionsColumnDef';
+import { getMRT_RowDragColumnDef } from './display-columns/getMRT_RowDragColumnDef';
+import { getMRT_RowExpandColumnDef } from './display-columns/getMRT_RowExpandColumnDef';
+import { getMRT_RowNumbersColumnDef } from './display-columns/getMRT_RowNumbersColumnDef';
+import { getMRT_RowPinningColumnDef } from './display-columns/getMRT_RowPinningColumnDef';
+import { getMRT_RowSelectColumnDef } from './display-columns/getMRT_RowSelectColumnDef';
+import { getMRT_RowSpacerColumnDef } from './display-columns/getMRT_RowSpacerColumnDef';
+import { useMRT_Effects } from './useMRT_Effects';
+
+import type {
+  MRT_Cell,
+  MRT_Column,
+  MRT_ColumnDef,
+  MRT_ColumnFilterFnsState,
+  MRT_ColumnOrderState,
+  MRT_ColumnResizingState,
+  MRT_DefinedTableOptions,
+  MRT_DensityState,
+  MRT_FilterOption,
+  MRT_GroupingState,
+  MRT_PaginationState,
+  MRT_Row,
+  MRT_RowData,
+  MRT_StatefulTableOptions,
+  MRT_TableInstance,
+  MRT_TableState,
+  MRT_Updater,
 } from '../types';
 import {
   getAllLeafColumnDefs,
@@ -38,17 +48,25 @@ import {
   showRowSpacerColumn,
 } from '../utils/displayColumn.utils';
 import { createRow } from '../utils/tanstack.helpers';
-import { getMRT_RowActionsColumnDef } from './display-columns/getMRT_RowActionsColumnDef';
-import { getMRT_RowDragColumnDef } from './display-columns/getMRT_RowDragColumnDef';
-import { getMRT_RowExpandColumnDef } from './display-columns/getMRT_RowExpandColumnDef';
-import { getMRT_RowNumbersColumnDef } from './display-columns/getMRT_RowNumbersColumnDef';
-import { getMRT_RowPinningColumnDef } from './display-columns/getMRT_RowPinningColumnDef';
-import { getMRT_RowSelectColumnDef } from './display-columns/getMRT_RowSelectColumnDef';
-import { getMRT_RowSpacerColumnDef } from './display-columns/getMRT_RowSpacerColumnDef';
-import { useMRT_Effects } from './useMRT_Effects';
 
 /**
- * The MRT hook that wraps the TanStack useReactTable hook and adds additional functionality
+ * The MRT hook that wraps the TanStack `useTable` hook and adds MRT-specific
+ * state, refs, and helpers. State management is built on top of TanStack
+ * Store atoms (`useCreateAtom` from `@tanstack/react-store`):
+ *
+ * - **TanStack-aware slices** (`columnOrder`, `columnResizing`, `grouping`,
+ *   `pagination`) are passed via the `atoms` option on `useTable`. Library
+ *   writes (e.g. `table.setSorting(...)`, `table.firstPage()`) flow directly
+ *   through these atoms, and they're automatically tracked in
+ *   `table.state` by the v9 store.
+ * - **MRT-only slices** (`density`, `isFullScreen`, `creatingRow`,
+ *   `editingCell`, `editingRow`, `draggingColumn`, `draggingRow`,
+ *   `hoveredColumn`, `hoveredRow`, `globalFilterFn`, `columnFilterFns`,
+ *   `showAlertBanner`, `showColumnFilters`, `showGlobalFilter`,
+ *   `showToolbarDropZone`) live in atoms outside the v9 store and are
+ *   merged into `table.state` after construction so MRT components can read
+ *   them via the same `state` surface.
+ *
  * @param definedTableOptions - table options with proper defaults set
  * @returns the MRT table instance
  */
@@ -67,7 +85,7 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
   const tableHeadRef = useRef<HTMLTableSectionElement>(null);
   const tableFooterRef = useRef<HTMLTableSectionElement>(null);
 
-  //transform initial state with proper column order
+  // transform initial state with proper column order
   const initialState: Partial<MRT_TableState<TData>> = useMemo(() => {
     const initState = definedTableOptions.initialState ?? {};
     initState.columnOrder =
@@ -85,81 +103,121 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
 
   definedTableOptions.initialState = initialState;
 
-  const [creatingRow, _setCreatingRow] = useState<MRT_Row<TData> | null>(
-    initialState.creatingRow ?? null,
-  );
-  const [columnFilterFns, setColumnFilterFns] =
-    useState<MRT_ColumnFilterFnsState>(() =>
-      Object.assign(
-        {},
-        ...getAllLeafColumnDefs(
-          definedTableOptions.columns as MRT_ColumnDef<TData>[],
-        ).map((col) => ({
-          [getColumnId(col)]:
-            col.filterFn instanceof Function
-              ? (col.filterFn.name ?? 'custom')
-              : (col.filterFn ??
-                initialState?.columnFilterFns?.[getColumnId(col)] ??
-                getDefaultColumnFilterFn(col)),
-        })),
-      ),
-    );
-  const [columnOrder, onColumnOrderChange] = useState<MRT_ColumnOrderState>(
+  // ---------------------------------------------------------------------------
+  // TanStack-aware atoms (passed to `useTable` via `atoms` option). The library
+  // both reads and writes through these.
+  // ---------------------------------------------------------------------------
+  const columnOrderAtom = useCreateAtom<MRT_ColumnOrderState>(
     initialState.columnOrder ?? [],
   );
-  const [columnSizingInfo, onColumnSizingInfoChange] =
-    useState<MRT_ColumnSizingInfoState>(
-      initialState.columnSizingInfo ?? ({} as MRT_ColumnSizingInfoState),
-    );
-  const [density, setDensity] = useState<MRT_DensityState>(
-    initialState?.density ?? 'md',
+  const columnResizingAtom = useCreateAtom<MRT_ColumnResizingState>(
+    initialState.columnResizing ?? ({} as MRT_ColumnResizingState),
   );
-  const [draggingColumn, setDraggingColumn] =
-    useState<MRT_Column<TData> | null>(initialState.draggingColumn ?? null);
-  const [draggingRow, setDraggingRow] = useState<MRT_Row<TData> | null>(
-    initialState.draggingRow ?? null,
-  );
-  const [editingCell, setEditingCell] = useState<MRT_Cell<TData> | null>(
-    initialState.editingCell ?? null,
-  );
-  const [editingRow, setEditingRow] = useState<MRT_Row<TData> | null>(
-    initialState.editingRow ?? null,
-  );
-  const [globalFilterFn, setGlobalFilterFn] = useState<MRT_FilterOption>(
-    initialState.globalFilterFn ?? 'fuzzy',
-  );
-  const [grouping, onGroupingChange] = useState<MRT_GroupingState>(
+  const groupingAtom = useCreateAtom<MRT_GroupingState>(
     initialState.grouping ?? [],
   );
-  const [hoveredColumn, setHoveredColumn] = useState<null | Partial<
-    MRT_Column<TData>
-  >>(initialState.hoveredColumn ?? null);
-  const [hoveredRow, setHoveredRow] = useState<null | Partial<MRT_Row<TData>>>(
-    initialState.hoveredRow ?? null,
-  );
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(
-    initialState?.isFullScreen ?? false,
-  );
-  const [pagination, onPaginationChange] = useState<MRT_PaginationState>(
+  const paginationAtom = useCreateAtom<MRT_PaginationState>(
     initialState?.pagination ?? { pageIndex: 0, pageSize: 10 },
   );
-  const [showAlertBanner, setShowAlertBanner] = useState<boolean>(
+
+  // Subscribe so the consumer re-renders when these slices change. (The library
+  // also reads from these atoms internally; the subscriptions here are for the
+  // MRT component tree.)
+  const columnOrder = useSelector(columnOrderAtom);
+  const columnResizing = useSelector(columnResizingAtom);
+  const grouping = useSelector(groupingAtom);
+  const pagination = useSelector(paginationAtom);
+
+  // ---------------------------------------------------------------------------
+  // MRT-only atoms — these slices aren't part of v9's `TableState` so they
+  // can't be passed via the `atoms` option. They're maintained as standalone
+  // atoms and merged into `table.state` after construction.
+  // ---------------------------------------------------------------------------
+  // Build the initial columnFilterFns map from each column's `filterFn` (or
+  // the registered default if none set). Constructed as a plain Record so
+  // `useCreateAtom`'s overload resolves to `Atom<T>` (writable) rather than
+  // the function-style `ReadonlyAtom<T>` overload.
+  const initialColumnFilterFns: MRT_ColumnFilterFnsState = {};
+  for (const col of getAllLeafColumnDefs(
+    definedTableOptions.columns as Array<MRT_ColumnDef<TData>>,
+  )) {
+    initialColumnFilterFns[getColumnId(col)] =
+      col.filterFn instanceof Function
+        ? (col.filterFn.name ?? 'custom')
+        : (col.filterFn ??
+          initialState?.columnFilterFns?.[getColumnId(col)] ??
+          getDefaultColumnFilterFn(col));
+  }
+  const columnFilterFnsAtom = useCreateAtom<MRT_ColumnFilterFnsState>(
+    initialColumnFilterFns,
+  );
+  const creatingRowAtom = useCreateAtom<MRT_Row<TData> | null>(
+    initialState.creatingRow ?? null,
+  );
+  const densityAtom = useCreateAtom<MRT_DensityState>(
+    initialState?.density ?? 'md',
+  );
+  const draggingColumnAtom = useCreateAtom<MRT_Column<TData> | null>(
+    initialState.draggingColumn ?? null,
+  );
+  const draggingRowAtom = useCreateAtom<MRT_Row<TData> | null>(
+    initialState.draggingRow ?? null,
+  );
+  const editingCellAtom = useCreateAtom<MRT_Cell<TData> | null>(
+    initialState.editingCell ?? null,
+  );
+  const editingRowAtom = useCreateAtom<MRT_Row<TData> | null>(
+    initialState.editingRow ?? null,
+  );
+  const globalFilterFnAtom = useCreateAtom<MRT_FilterOption>(
+    initialState.globalFilterFn ?? 'fuzzy',
+  );
+  const hoveredColumnAtom = useCreateAtom<null | Partial<MRT_Column<TData>>>(
+    initialState.hoveredColumn ?? null,
+  );
+  const hoveredRowAtom = useCreateAtom<null | Partial<MRT_Row<TData>>>(
+    initialState.hoveredRow ?? null,
+  );
+  const isFullScreenAtom = useCreateAtom<boolean>(
+    initialState?.isFullScreen ?? false,
+  );
+  const showAlertBannerAtom = useCreateAtom<boolean>(
     initialState?.showAlertBanner ?? false,
   );
-  const [showColumnFilters, setShowColumnFilters] = useState<boolean>(
+  const showColumnFiltersAtom = useCreateAtom<boolean>(
     initialState?.showColumnFilters ?? false,
   );
-  const [showGlobalFilter, setShowGlobalFilter] = useState<boolean>(
+  const showGlobalFilterAtom = useCreateAtom<boolean>(
     initialState?.showGlobalFilter ?? false,
   );
-  const [showToolbarDropZone, setShowToolbarDropZone] = useState<boolean>(
+  const showToolbarDropZoneAtom = useCreateAtom<boolean>(
     initialState?.showToolbarDropZone ?? false,
   );
 
+  const columnFilterFns = useSelector(columnFilterFnsAtom);
+  const creatingRow = useSelector(creatingRowAtom);
+  const density = useSelector(densityAtom);
+  const draggingColumn = useSelector(draggingColumnAtom);
+  const draggingRow = useSelector(draggingRowAtom);
+  const editingCell = useSelector(editingCellAtom);
+  const editingRow = useSelector(editingRowAtom);
+  const globalFilterFn = useSelector(globalFilterFnAtom);
+  const hoveredColumn = useSelector(hoveredColumnAtom);
+  const hoveredRow = useSelector(hoveredRowAtom);
+  const isFullScreen = useSelector(isFullScreenAtom);
+  const showAlertBanner = useSelector(showAlertBannerAtom);
+  const showColumnFilters = useSelector(showColumnFiltersAtom);
+  const showGlobalFilter = useSelector(showGlobalFilterAtom);
+  const showToolbarDropZone = useSelector(showToolbarDropZoneAtom);
+
+  // Mirror values into options.state so utilities that read
+  // `tableOptions.state.X` (e.g. column prep, display-column factories) keep
+  // working. The user can still override individual slices by setting
+  // `definedTableOptions.state` from outside.
   definedTableOptions.state = {
     columnFilterFns,
     columnOrder,
-    columnSizingInfo,
+    columnResizing,
     creatingRow,
     density,
     draggingColumn,
@@ -179,44 +237,94 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
     ...definedTableOptions.state,
   };
 
-  //The table options now include all state needed to help determine column visibility and order logic
+  // The table options now include all state needed to help determine column visibility and order logic
   const statefulTableOptions =
     definedTableOptions as MRT_StatefulTableOptions<TData>;
 
-  //don't recompute columnDefs while resizing column or dragging column/row
-  const columnDefsRef = useRef<MRT_ColumnDef<TData>[]>([]);
-  statefulTableOptions.columns =
-    statefulTableOptions.state.columnSizingInfo.isResizingColumn ||
-    statefulTableOptions.state.draggingColumn ||
-    statefulTableOptions.state.draggingRow
-      ? columnDefsRef.current
-      : prepareColumns({
-          columnDefs: [
-            ...([
-              showRowPinningColumn(statefulTableOptions) &&
-                getMRT_RowPinningColumnDef(statefulTableOptions),
-              showRowDragColumn(statefulTableOptions) &&
-                getMRT_RowDragColumnDef(statefulTableOptions),
-              showRowActionsColumn(statefulTableOptions) &&
-                getMRT_RowActionsColumnDef(statefulTableOptions),
-              showRowExpandColumn(statefulTableOptions) &&
-                getMRT_RowExpandColumnDef(statefulTableOptions),
-              showRowSelectionColumn(statefulTableOptions) &&
-                getMRT_RowSelectColumnDef(statefulTableOptions),
-              showRowNumbersColumn(statefulTableOptions) &&
-                getMRT_RowNumbersColumnDef(statefulTableOptions),
-            ].filter(Boolean) as MRT_ColumnDef<TData>[]),
-            ...statefulTableOptions.columns,
-            ...([
-              showRowSpacerColumn(statefulTableOptions) &&
-                getMRT_RowSpacerColumnDef(statefulTableOptions),
-            ].filter(Boolean) as MRT_ColumnDef<TData>[]),
-          ],
-          tableOptions: statefulTableOptions,
-        });
-  columnDefsRef.current = statefulTableOptions.columns;
+  // Column preparation mutates/augments definitions and must rerun when an
+  // input that affects those definitions changes. Keep the resulting array
+  // stable across unrelated state updates such as pagination.
+  const columnDefsRef = useRef<Array<MRT_ColumnDef<TData>>>([]);
+  const columnPreparationDepsRef = useRef<Array<unknown> | undefined>(
+    undefined,
+  );
+  const sourceColumns = statefulTableOptions.columns;
+  const columnPreparationDeps: Array<unknown> = [
+    sourceColumns,
+    statefulTableOptions.defaultColumn,
+    statefulTableOptions.defaultDisplayColumn,
+    statefulTableOptions.displayColumnDefOptions,
+    statefulTableOptions.filterFns,
+    statefulTableOptions.sortFns,
+    statefulTableOptions.localization,
+    statefulTableOptions.state.columnFilterFns,
+    statefulTableOptions.state.creatingRow,
+    statefulTableOptions.state.grouping,
+    statefulTableOptions.createDisplayMode,
+    statefulTableOptions.editDisplayMode,
+    statefulTableOptions.enableEditing,
+    statefulTableOptions.enableExpandAll,
+    statefulTableOptions.enableExpanding,
+    statefulTableOptions.enableGrouping,
+    statefulTableOptions.enableMultiRowSelection,
+    statefulTableOptions.enableRowActions,
+    statefulTableOptions.enableRowDragging,
+    statefulTableOptions.enableRowNumbers,
+    statefulTableOptions.enableRowOrdering,
+    statefulTableOptions.enableRowPinning,
+    statefulTableOptions.enableRowSelection,
+    statefulTableOptions.enableSelectAll,
+    statefulTableOptions.groupedColumnMode,
+    statefulTableOptions.layoutMode,
+    statefulTableOptions.positionExpandColumn,
+    statefulTableOptions.renderDetailPanel,
+    statefulTableOptions.rowNumberDisplayMode,
+    statefulTableOptions.rowPinningDisplayMode,
+  ];
+  const previousColumnPreparationDeps = columnPreparationDepsRef.current;
+  const columnPreparationChanged =
+    !previousColumnPreparationDeps ||
+    columnPreparationDeps.length !== previousColumnPreparationDeps.length ||
+    columnPreparationDeps.some(
+      (dependency, index) =>
+        !Object.is(dependency, previousColumnPreparationDeps[index]),
+    );
+  const freezePreparedColumns =
+    !!columnDefsRef.current.length &&
+    (statefulTableOptions.state.columnResizing.isResizingColumn ||
+      !!statefulTableOptions.state.draggingColumn ||
+      !!statefulTableOptions.state.draggingRow);
 
-  //if loading, generate blank rows to show skeleton loaders
+  if (columnPreparationChanged && !freezePreparedColumns) {
+    columnDefsRef.current = prepareColumns({
+      columnDefs: [
+        ...([
+          showRowPinningColumn(statefulTableOptions) &&
+            getMRT_RowPinningColumnDef(statefulTableOptions),
+          showRowDragColumn(statefulTableOptions) &&
+            getMRT_RowDragColumnDef(statefulTableOptions),
+          showRowActionsColumn(statefulTableOptions) &&
+            getMRT_RowActionsColumnDef(statefulTableOptions),
+          showRowExpandColumn(statefulTableOptions) &&
+            getMRT_RowExpandColumnDef(statefulTableOptions),
+          showRowSelectionColumn(statefulTableOptions) &&
+            getMRT_RowSelectColumnDef(statefulTableOptions),
+          showRowNumbersColumn(statefulTableOptions) &&
+            getMRT_RowNumbersColumnDef(statefulTableOptions),
+        ].filter(Boolean) as Array<MRT_ColumnDef<TData>>),
+        ...sourceColumns,
+        ...([
+          showRowSpacerColumn(statefulTableOptions) &&
+            getMRT_RowSpacerColumnDef(statefulTableOptions),
+        ].filter(Boolean) as Array<MRT_ColumnDef<TData>>),
+      ],
+      tableOptions: statefulTableOptions,
+    });
+    columnPreparationDepsRef.current = columnPreparationDeps;
+  }
+  statefulTableOptions.columns = columnDefsRef.current;
+
+  // if loading, generate blank rows to show skeleton loaders
   statefulTableOptions.data = useMemo(
     () =>
       (statefulTableOptions.state.isLoading ||
@@ -244,15 +352,52 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
     ],
   );
 
-  //@ts-ignore
-  const table = useReactTable({
-    onColumnOrderChange,
-    onColumnSizingInfoChange,
-    onGroupingChange,
-    onPaginationChange,
-    ...statefulTableOptions,
-    globalFilterFn: statefulTableOptions.filterFns?.[globalFilterFn ?? 'fuzzy'],
-  }) as MRT_TableInstance<TData>;
+  const table = useTable(
+    {
+      ...(statefulTableOptions as any),
+      // Hand TanStack-aware slices over to our external atoms — library writes
+      // (e.g. `table.setPageIndex(...)`, drag-resize) flow straight into them.
+      atoms: {
+        columnOrder: columnOrderAtom,
+        columnResizing: columnResizingAtom,
+        grouping: groupingAtom,
+        pagination: paginationAtom,
+      },
+      globalFilterFn: (globalFilterFn ?? 'fuzzy') as any,
+    },
+    (state) => state, // default selector
+  ) as unknown as MRT_TableInstance<TData>;
+
+  // v9 spells the resize setter `setcolumnResizing` (lowercase 'c') because
+  // it's auto-generated from the state-key name. Expose a camelCase alias so
+  // MRT consumers don't need to know about that quirk; route writes through
+  // our owned atom directly.
+  table.setColumnResizing = columnResizingAtom.set as any;
+
+  // The v9 store doesn't track MRT-only slices, so `table.state` is missing
+  // them after `useTable` returns. Patch them in here so all MRT components
+  // can read `table.state.density`, `table.state.isFullScreen`, etc.
+  table.state = {
+    ...table.state,
+    columnFilterFns,
+    creatingRow,
+    density,
+    draggingColumn,
+    draggingRow,
+    editingCell,
+    editingRow,
+    globalFilterFn,
+    hoveredColumn,
+    hoveredRow,
+    isFullScreen,
+    showAlertBanner,
+    showColumnFilters,
+    showGlobalFilter,
+    showToolbarDropZone,
+  };
+
+  // v8-style `getState()` alias for any consumer that still calls it.
+  table.getState = () => table.state;
 
   table.refs = {
     bottomToolbarRef,
@@ -268,6 +413,11 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
     topToolbarRef,
   };
 
+  // Setters write through atom.set (or call the user-supplied on*Change
+  // handler if one was provided so external state ownership still works).
+  // The `as any` casts bridge atom.set's overloaded signature with React's
+  // `Dispatch<SetStateAction<T>>` shape — the runtime contract is identical
+  // (both accept a value or an updater function).
   table.setCreatingRow = (row: MRT_Updater<MRT_Row<TData> | null | true>) => {
     let _row = row;
     if (row === true) {
@@ -276,36 +426,56 @@ export const useMRT_TableInstance = <TData extends MRT_RowData>(
     if (statefulTableOptions?.onCreatingRowChange) {
       statefulTableOptions.onCreatingRowChange(_row as MRT_Row<TData> | null);
     } else {
-      _setCreatingRow(_row as MRT_Row<TData> | null);
+      creatingRowAtom.set(_row as MRT_Row<TData> | null);
     }
   };
-  table.setColumnFilterFns =
-    statefulTableOptions.onColumnFilterFnsChange ?? setColumnFilterFns;
-  table.setDensity = statefulTableOptions.onDensityChange ?? setDensity;
-  table.setDraggingColumn =
-    statefulTableOptions.onDraggingColumnChange ?? setDraggingColumn;
-  table.setDraggingRow =
-    statefulTableOptions.onDraggingRowChange ?? setDraggingRow;
-  table.setEditingCell =
-    statefulTableOptions.onEditingCellChange ?? setEditingCell;
-  table.setEditingRow =
-    statefulTableOptions.onEditingRowChange ?? setEditingRow;
-  table.setGlobalFilterFn =
-    statefulTableOptions.onGlobalFilterFnChange ?? setGlobalFilterFn;
-  table.setHoveredColumn =
-    statefulTableOptions.onHoveredColumnChange ?? setHoveredColumn;
-  table.setHoveredRow =
-    statefulTableOptions.onHoveredRowChange ?? setHoveredRow;
-  table.setIsFullScreen =
-    statefulTableOptions.onIsFullScreenChange ?? setIsFullScreen;
-  table.setShowAlertBanner =
-    statefulTableOptions.onShowAlertBannerChange ?? setShowAlertBanner;
+  table.setColumnFilterFns = (statefulTableOptions.onColumnFilterFnsChange ??
+    columnFilterFnsAtom.set) as any;
+  table.setDensity = (statefulTableOptions.onDensityChange ??
+    densityAtom.set) as any;
+  table.setDraggingColumn = (statefulTableOptions.onDraggingColumnChange ??
+    draggingColumnAtom.set) as any;
+  table.setDraggingRow = (statefulTableOptions.onDraggingRowChange ??
+    draggingRowAtom.set) as any;
+  table.setEditingCell = (statefulTableOptions.onEditingCellChange ??
+    editingCellAtom.set) as any;
+  table.setEditingRow = (statefulTableOptions.onEditingRowChange ??
+    editingRowAtom.set) as any;
+  table.setGlobalFilterFn = (statefulTableOptions.onGlobalFilterFnChange ??
+    globalFilterFnAtom.set) as any;
+  table.setHoveredColumn = (statefulTableOptions.onHoveredColumnChange ??
+    hoveredColumnAtom.set) as any;
+  table.setHoveredRow = (statefulTableOptions.onHoveredRowChange ??
+    hoveredRowAtom.set) as any;
+  table.setIsFullScreen = (statefulTableOptions.onIsFullScreenChange ??
+    isFullScreenAtom.set) as any;
+  table.setShowAlertBanner = (statefulTableOptions.onShowAlertBannerChange ??
+    showAlertBannerAtom.set) as any;
   table.setShowColumnFilters =
-    statefulTableOptions.onShowColumnFiltersChange ?? setShowColumnFilters;
-  table.setShowGlobalFilter =
-    statefulTableOptions.onShowGlobalFilterChange ?? setShowGlobalFilter;
+    (statefulTableOptions.onShowColumnFiltersChange ??
+      showColumnFiltersAtom.set) as any;
+  table.setShowGlobalFilter = (statefulTableOptions.onShowGlobalFilterChange ??
+    showGlobalFilterAtom.set) as any;
   table.setShowToolbarDropZone =
-    statefulTableOptions.onShowToolbarDropZoneChange ?? setShowToolbarDropZone;
+    (statefulTableOptions.onShowToolbarDropZoneChange ??
+      showToolbarDropZoneAtom.set) as any;
+
+  // Row/column/header objects (e.g. `header.getContext().table`) reference the
+  // core table, not the per-render copy `useTable` returns. Mirror MRT's
+  // additions onto it so headless `flexRender` usage gets the same instance API.
+  const coreTable = table.getAllColumns()[0]?.table as any;
+  if (coreTable && coreTable !== table) {
+    for (const key of Object.keys(table)) {
+      if (
+        key === 'state' ||
+        key === 'getState' ||
+        key === 'refs' ||
+        /^set[A-Z]/.test(key)
+      ) {
+        coreTable[key] = (table as any)[key];
+      }
+    }
+  }
 
   useMRT_Effects(table);
 

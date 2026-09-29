@@ -3,6 +3,9 @@
 # Change directory to the example directory
 cd apps/mantine-react-table-docs/examples
 
+# Supply-chain safety: never pick package versions younger than 7 days
+BEFORE=$(date -u -d '7 days ago' +%FT%TZ)
+
 # Loop through each file in the example directory
 for file in *; do
   if [ -d "$file" ]; then
@@ -20,11 +23,11 @@ for file in *; do
       cd sandbox
 
       ## Update dependency versions
-      npx npm-check-updates -u
-      npx npm-check-updates -u mantine-react-table -t greatest
+      npx npm-check-updates -u --cooldown 7 --reject typescript
+      npx npm-check-updates -u mantine-react-table -t greatest --cooldown 7
 
       # Run npm install
-      npm install --package-lock-only --force
+      npm install --package-lock-only --force --before="$BEFORE"
 
       echo "  - npm install completed"
       

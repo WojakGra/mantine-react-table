@@ -4,18 +4,18 @@ import { Fragment, useMemo } from 'react';
 
 import { Menu } from '@mantine/core';
 
-import {
-  type MRT_FilterOption,
-  type MRT_Header,
-  type MRT_InternalFilterOption,
-  type MRT_Localization,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  MRT_FilterOption,
+  MRT_Header,
+  MRT_InternalFilterOption,
+  MRT_Localization,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 
 export const mrtFilterOptions = (
   localization: MRT_Localization,
-): MRT_InternalFilterOption[] => [
+): Array<MRT_InternalFilterOption> => [
   {
     divider: false,
     label: localization.filterFuzzy,
@@ -119,7 +119,6 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
   table,
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       columnFilterModeOptions,
       globalFilterModeOptions,
@@ -129,8 +128,9 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
     },
     setColumnFilterFns,
     setGlobalFilterFn,
+    state,
   } = table;
-  const { globalFilterFn } = getState();
+  const { globalFilterFn } = state;
   const { column } = header ?? {};
   const { columnDef } = column ?? {};
   const currentFilterValue = column?.getFilterValue();
@@ -186,7 +186,7 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
         }
       } else if (
         columnDef?.filterVariant === 'multi-select' ||
-        arrModes.includes(option as string)
+        arrModes.includes(option)
       ) {
         // will now be array filter mode
         if (
@@ -199,12 +199,12 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
         }
       } else if (
         rangeVariants.includes(columnDef?.filterVariant as string) ||
-        rangeModes.includes(option as MRT_FilterOption)
+        rangeModes.includes(option)
       ) {
         // will now be range filter mode
         if (
           !Array.isArray(currentFilterValue) ||
-          (!(currentFilterValue as Array<any>)?.every((v) => v === '') &&
+          (!currentFilterValue?.every((v) => v === '') &&
             !rangeModes.includes(prevFilterMode))
         ) {
           column.setFilterValue(['', '']);
@@ -235,13 +235,13 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
     <Menu.Dropdown>
       {(header && column && columnDef
         ? (columnDef.renderColumnFilterModeMenuItems?.({
-            column: column as any,
+            column: column,
             internalFilterOptions,
             onSelectFilterMode: handleSelectFilterMode,
             table,
           }) ??
           renderColumnFilterModeMenuItems?.({
-            column: column as any,
+            column: column,
             internalFilterOptions,
             onSelectFilterMode: handleSelectFilterMode,
             table,
@@ -257,9 +257,7 @@ export const MRT_FilterOptionMenu = <TData extends MRT_RowData>({
               <Menu.Item
                 color={option === filterOption ? 'blue' : undefined}
                 leftSection={<span className={classes.symbol}>{symbol}</span>}
-                onClick={() =>
-                  handleSelectFilterMode(option as MRT_FilterOption)
-                }
+                onClick={() => handleSelectFilterMode(option)}
                 value={option}
               >
                 {label}

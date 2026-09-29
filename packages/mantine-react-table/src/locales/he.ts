@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_HE: MRT_Localization = {
   actions: 'פעולות',
@@ -11,11 +11,11 @@ export const MRT_Localization_HE: MRT_Localization = {
   clearSelection: 'נקה בחירה',
   clearSort: 'נקה מיון',
   clickToCopy: 'לחץ להעתקה',
-  copy: 'העתק',
   collapse: 'צמצום',
   collapseAll: 'צמצום הכל',
   columnActions: 'פעולות עמודה',
   copiedToClipboard: 'הועתק ללוח',
+  copy: 'העתק',
   dropToGroupBy: 'גרור לקיבוץ לפי {column}',
   edit: 'ערוך',
   expand: 'הרחב',
@@ -34,9 +34,10 @@ export const MRT_Localization_HE: MRT_Localization = {
   filterFuzzy: 'פעיל',
   filterGreaterThan: 'גדול מ',
   filterGreaterThanOrEqualTo: 'גדול או שווה ל',
-  filterInNumberRange: 'בין',
   filterIncludesString: 'מכיל',
   filterIncludesStringSensitive: 'מכיל',
+  filteringByColumn: 'מסנן לפי {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'בין',
   filterLessThan: 'קטן מ',
   filterLessThanOrEqualTo: 'קטן או שווה ל',
   filterMode: 'מצב סינון: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_HE: MRT_Localization = {
   filterNotEquals: 'לא שווה',
   filterStartsWith: 'מתחיל ב',
   filterWeakEquals: 'שווה',
-  filteringByColumn: 'מסנן לפי {column} - {filterType} {filterValue}',
   goToFirstPage: 'לדף הראשון',
   goToLastPage: 'לדף האחרון',
   goToNextPage: 'לדף הבא',
@@ -72,9 +72,9 @@ export const MRT_Localization_HE: MRT_Localization = {
   rowsPerPage: 'שורות לעמוד',
   save: 'שמור',
   search: 'חיפוש',
+  select: 'בחר',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} מתוך {rowCount} שורות נבחרו',
-  select: 'בחר',
   showAll: 'הצג הכל',
   showAllColumns: 'הצג את כל העמודות',
   showHideColumns: 'הצג/הסתר עמודות',

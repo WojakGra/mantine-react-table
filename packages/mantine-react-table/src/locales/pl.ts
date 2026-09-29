@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_PL: MRT_Localization = {
   actions: 'Akcje',
@@ -11,11 +11,11 @@ export const MRT_Localization_PL: MRT_Localization = {
   clearSelection: 'Wyczyść zaznaczenie',
   clearSort: 'Wyczyść sortowanie',
   clickToCopy: 'Kliknij, aby skopiować',
-  copy: 'Kopiuj',
   collapse: 'Zwiń',
   collapseAll: 'Zwiń wszystko',
   columnActions: 'Akcje dla kolumny',
   copiedToClipboard: 'Skopiowano do schowka',
+  copy: 'Kopiuj',
   dropToGroupBy: 'Upuść aby zgrupować wg {column}',
   edit: 'Edytuj',
   expand: 'Rozwiń',
@@ -34,9 +34,10 @@ export const MRT_Localization_PL: MRT_Localization = {
   filterFuzzy: 'Rozmyte dopasowanie',
   filterGreaterThan: 'Większe niż',
   filterGreaterThanOrEqualTo: 'Większe lub równe',
-  filterInNumberRange: 'Pomiędzy',
   filterIncludesString: 'Zawiera',
   filterIncludesStringSensitive: 'Zawiera (istotna wielkość znaków)',
+  filteringByColumn: 'Filtrowanie wg {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Pomiędzy',
   filterLessThan: 'Mniejsze niż',
   filterLessThanOrEqualTo: 'Mniejsze lub równe',
   filterMode: 'Tryb filtrowania: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_PL: MRT_Localization = {
   filterNotEquals: 'Nie równa się',
   filterStartsWith: 'Zaczyna się od',
   filterWeakEquals: 'Równa się',
-  filteringByColumn: 'Filtrowanie wg {column} - {filterType} {filterValue}',
   goToFirstPage: 'Pierwsza strona',
   goToLastPage: 'Ostatnia strona',
   goToNextPage: 'Następna strona',
@@ -72,9 +72,9 @@ export const MRT_Localization_PL: MRT_Localization = {
   rowsPerPage: 'Wyników na stronę',
   save: 'Zapisz',
   search: 'Szukaj',
+  select: 'Wybierz',
   selectedCountOfRowCountRowsSelected:
     'Wybrano {selectedCount} z {rowCount} wyników',
-  select: 'Wybierz',
   showAll: 'Pokaż wszystko',
   showAllColumns: 'Pokaż wszystkie kolumny',
   showHideColumns: 'Pokaż/ukryj kolumny',

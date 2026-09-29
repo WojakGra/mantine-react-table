@@ -2,22 +2,24 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableDetailPanel.module.css';
 
-import { type RefObject } from 'react';
+import type { RefObject } from 'react';
 
-import { Collapse, TableTd, type TableTdProps, TableTr } from '@mantine/core';
+import { Collapse, TableTd, TableTr } from '@mantine/core';
+import type { TableTdProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_RowVirtualizer,
-  type MRT_TableInstance,
-  type MRT_VirtualItem,
-} from '../../types';
-import { parseFromValuesOrFunc } from '../../utils/utils';
 import { MRT_EditCellTextInput } from '../inputs/MRT_EditCellTextInput';
 
+import type {
+  MRT_Row,
+  MRT_RowData,
+  MRT_RowVirtualizer,
+  MRT_TableInstance,
+  MRT_VirtualItem,
+} from '../../types';
+import { parseFromValuesOrFunc } from '../../utils/utils';
+
 interface Props<TData extends MRT_RowData> extends TableTdProps {
-  parentRowRef: RefObject<HTMLTableRowElement>;
+  parentRowRef: RefObject<HTMLTableRowElement | null>;
   renderedRowIndex?: number;
   row: MRT_Row<TData>;
   rowVirtualizer?: MRT_RowVirtualizer;
@@ -37,7 +39,6 @@ export const MRT_TableDetailPanel = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     getVisibleLeafColumns,
     options: {
       layoutMode,
@@ -45,8 +46,9 @@ export const MRT_TableDetailPanel = <TData extends MRT_RowData>({
       mantineTableBodyRowProps,
       renderDetailPanel,
     },
+    state,
   } = table;
-  const { isLoading } = getState();
+  const { isLoading } = state;
 
   const tableRowProps = parseFromValuesOrFunc(mantineTableBodyRowProps, {
     isDetailPanel: true,
@@ -122,7 +124,7 @@ export const MRT_TableDetailPanel = <TData extends MRT_RowData>({
         {rowVirtualizer ? (
           row.getIsExpanded() && DetailPanel
         ) : (
-          <Collapse in={row.getIsExpanded()}>{DetailPanel}</Collapse>
+          <Collapse expanded={row.getIsExpanded()}>{DetailPanel}</Collapse>
         )}
       </TableTd>
     </TableTr>

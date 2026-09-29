@@ -1,12 +1,9 @@
 import classes from './MRT_ColumnActionMenu.module.css';
 
-import { ActionIcon, Menu, type MenuProps, Tooltip } from '@mantine/core';
+import { ActionIcon, Menu, Tooltip } from '@mantine/core';
+import type { MenuProps } from '@mantine/core';
 
-import {
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Header, MRT_RowData, MRT_TableInstance } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends MenuProps {
@@ -20,7 +17,6 @@ export const MRT_ColumnActionMenu = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       columnFilterDisplayMode,
       enableColumnFilters,
@@ -50,13 +46,14 @@ export const MRT_ColumnActionMenu = <TData extends MRT_RowData>({
     },
     refs: { filterInputRefs },
     setColumnOrder,
-    setColumnSizingInfo,
+    setColumnResizing,
     setShowColumnFilters,
+    state,
     toggleAllColumnsVisible,
   } = table;
   const { column } = header;
   const { columnDef } = column;
-  const { columnSizing, columnVisibility } = getState();
+  const { columnSizing, columnVisibility } = state;
 
   const arg = { column, table };
   const actionIconProps = {
@@ -77,7 +74,7 @@ export const MRT_ColumnActionMenu = <TData extends MRT_RowData>({
   };
 
   const handleResetColumnSize = () => {
-    setColumnSizingInfo((old) => ({ ...old, isResizingColumn: false }));
+    setColumnResizing((old) => ({ ...old, isResizingColumn: false }));
     column.resetSize();
   };
 
@@ -85,7 +82,7 @@ export const MRT_ColumnActionMenu = <TData extends MRT_RowData>({
     column.toggleVisibility(false);
   };
 
-  const handlePinColumn = (pinDirection: 'left' | 'right' | false) => {
+  const handlePinColumn = (pinDirection: 'end' | 'start' | false) => {
     column.pin(pinDirection);
   };
 
@@ -184,16 +181,16 @@ export const MRT_ColumnActionMenu = <TData extends MRT_RowData>({
       {enableColumnPinning && column.getCanPin() && (
         <>
           <Menu.Item
-            disabled={column.getIsPinned() === 'left' || !column.getCanPin()}
+            disabled={column.getIsPinned() === 'start' || !column.getCanPin()}
             leftSection={<IconPinned className={classes.left} />}
-            onClick={() => handlePinColumn('left')}
+            onClick={() => handlePinColumn('start')}
           >
             {localization.pinToLeft}
           </Menu.Item>
           <Menu.Item
-            disabled={column.getIsPinned() === 'right' || !column.getCanPin()}
+            disabled={column.getIsPinned() === 'end' || !column.getCanPin()}
             leftSection={<IconPinned className={classes.right} />}
-            onClick={() => handlePinColumn('right')}
+            onClick={() => handlePinColumn('end')}
           >
             {localization.pinToRight}
           </Menu.Item>

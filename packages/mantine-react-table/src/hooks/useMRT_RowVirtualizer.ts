@@ -1,13 +1,14 @@
 import { useCallback } from 'react';
 
-import { type Range, useVirtualizer } from '@tanstack/react-virtual';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import type { Range } from '@tanstack/react-virtual';
 
-import {
-  type MRT_DensityState,
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_RowVirtualizer,
-  type MRT_TableInstance,
+import type {
+  MRT_DensityState,
+  MRT_Row,
+  MRT_RowData,
+  MRT_RowVirtualizer,
+  MRT_TableInstance,
 } from '../types';
 import { parseFromValuesOrFunc } from '../utils/utils';
 import { extraIndexRangeExtractor } from '../utils/virtualization.utils';
@@ -18,11 +19,10 @@ export const useMRT_RowVirtualizer = <
   TItemElement extends Element = HTMLTableRowElement,
 >(
   table: MRT_TableInstance<TData>,
-  rows?: MRT_Row<TData>[],
+  rows?: Array<MRT_Row<TData>>,
 ): MRT_RowVirtualizer<TScrollElement, TItemElement> | undefined => {
   const {
     getRowModel,
-    getState,
     options: {
       enableRowVirtualization,
       renderDetailPanel,
@@ -30,8 +30,9 @@ export const useMRT_RowVirtualizer = <
       rowVirtualizerOptions,
     },
     refs: { tableContainerRef },
+    state,
   } = table;
-  const { density, draggingRow, expanded } = getState();
+  const { density, draggingRow, expanded } = state;
 
   if (!enableRowVirtualization) return undefined;
 
@@ -83,10 +84,10 @@ export const useMRT_RowVirtualizer = <
     ...rowVirtualizerProps,
   }) as unknown as MRT_RowVirtualizer<TScrollElement, TItemElement>;
 
-  rowVirtualizer.virtualRows = rowVirtualizer.getVirtualItems() as any;
+  rowVirtualizer.virtualRows = rowVirtualizer.getVirtualItems();
 
   if (rowVirtualizerInstanceRef) {
-    //@ts-ignore
+    // @ts-ignore
     rowVirtualizerInstanceRef.current = rowVirtualizer;
   }
 

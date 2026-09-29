@@ -1,12 +1,9 @@
-import { type MouseEvent } from 'react';
+import type { MouseEvent } from 'react';
 
-import { ActionIcon, type ActionIconProps, Menu, Tooltip } from '@mantine/core';
+import { ActionIcon, Menu, Tooltip } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends ActionIconProps {
   handleEdit: (event: MouseEvent) => void;

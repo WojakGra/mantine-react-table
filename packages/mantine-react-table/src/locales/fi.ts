@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_FI: MRT_Localization = {
   actions: 'Toiminnot',
@@ -11,11 +11,11 @@ export const MRT_Localization_FI: MRT_Localization = {
   clearSelection: 'Tyhjennä valinta',
   clearSort: 'Tyhjennä lajittelu',
   clickToCopy: 'Kopioi napsauttamalla',
-  copy: 'Kopioi',
   collapse: 'Supista',
   collapseAll: 'Supista kaikki',
   columnActions: 'Saraketoiminnot',
   copiedToClipboard: 'Kopioitu leikepöydälle',
+  copy: 'Kopioi',
   dropToGroupBy: 'Pudota tähän ryhmitelläksesi sarakkeen {column} mukaan',
   edit: 'Muokkaa',
   expand: 'Laajenna',
@@ -34,9 +34,11 @@ export const MRT_Localization_FI: MRT_Localization = {
   filterFuzzy: 'Sumea',
   filterGreaterThan: 'Enemmän kuin',
   filterGreaterThanOrEqualTo: 'Enemmän tai yhtä paljon kuin',
-  filterInNumberRange: 'Välillä',
   filterIncludesString: 'Sisältää',
   filterIncludesStringSensitive: 'Sisältää',
+  filteringByColumn:
+    'Suodatetaan sarakkeen {column} mukaan - {filterType} {filterValue}',
+  filterInNumberRange: 'Välillä',
   filterLessThan: 'Vähemmän kuin',
   filterLessThanOrEqualTo: 'Vähemmän tai yhtä paljon kuin',
   filterMode: 'Suodattimen tila: {filterType}',
@@ -44,8 +46,6 @@ export const MRT_Localization_FI: MRT_Localization = {
   filterNotEquals: 'Ei ole yhtä kuin',
   filterStartsWith: 'Alkaa',
   filterWeakEquals: 'On yhtä kuin',
-  filteringByColumn:
-    'Suodatetaan sarakkeen {column} mukaan - {filterType} {filterValue}',
   goToFirstPage: 'Siirry ensimmäiselle sivulle',
   goToLastPage: 'Siirry viimeiselle sivulle',
   goToNextPage: 'Siirry seuraavalle sivulle',
@@ -73,9 +73,9 @@ export const MRT_Localization_FI: MRT_Localization = {
   rowsPerPage: 'Rivejä per sivu',
   save: 'Tallenna',
   search: 'Etsi',
+  select: 'Valitse',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount}/{rowCount} rivi(ä) valittu',
-  select: 'Valitse',
   showAll: 'Näytä kaikki',
   showAllColumns: 'Näytä kaikki sarakkeet',
   showHideColumns: 'Näytä/piilota sarakkeita',

@@ -1,30 +1,26 @@
-import { ActionIcon, type ActionIconProps, Tooltip } from '@mantine/core';
+import { ActionIcon, Tooltip } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type HTMLPropsRef,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { HTMLPropsRef, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData>
-  extends ActionIconProps,
-    HTMLPropsRef<HTMLButtonElement> {
+  extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
   table: MRT_TableInstance<TData>;
 }
 
 export const MRT_ToggleFiltersButton = <TData extends MRT_RowData>({
   table: {
-    getState,
     options: {
       icons: { IconFilter, IconFilterOff },
       localization: { showHideFilters },
     },
     setShowColumnFilters,
+    state,
   },
   title,
   ...rest
 }: Props<TData>) => {
-  const { showColumnFilters } = getState();
+  const { showColumnFilters } = state;
 
   return (
     <Tooltip label={title ?? showHideFilters} withinPortal>

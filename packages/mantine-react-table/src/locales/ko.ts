@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_KO: MRT_Localization = {
   actions: '동작',
@@ -11,11 +11,11 @@ export const MRT_Localization_KO: MRT_Localization = {
   clearSelection: '선택 초기화',
   clearSort: '정렬 초기화',
   clickToCopy: '클릭하여 복사하기',
-  copy: '복사',
   collapse: '행 접기',
   collapseAll: '전체 접기',
   columnActions: '열 동작',
   copiedToClipboard: '클립보드에 복사됨',
+  copy: '복사',
   dropToGroupBy: '드롭하여 {column} 그룹화',
   edit: '편집',
   expand: '행 확장',
@@ -34,9 +34,10 @@ export const MRT_Localization_KO: MRT_Localization = {
   filterFuzzy: '퍼지',
   filterGreaterThan: '보다 큼',
   filterGreaterThanOrEqualTo: '보다 크거나 같음',
-  filterInNumberRange: '사이',
   filterIncludesString: '포함',
   filterIncludesStringSensitive: '포함',
+  filteringByColumn: '{column} 필터링 - {filterValue} {filterType}',
+  filterInNumberRange: '사이',
   filterLessThan: '보다 작음',
   filterLessThanOrEqualTo: '보다 작거나 같음',
   filterMode: '필터 모드: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_KO: MRT_Localization = {
   filterNotEquals: '같지 않음',
   filterStartsWith: '시작 단어',
   filterWeakEquals: '같음',
-  filteringByColumn: '{column} 필터링 - {filterValue} {filterType}',
   goToFirstPage: '첫 페이지',
   goToLastPage: '마지막 페이지',
   goToNextPage: '다음 페이지',
@@ -72,9 +72,9 @@ export const MRT_Localization_KO: MRT_Localization = {
   rowsPerPage: '페이지 당 행 수',
   save: '저장',
   search: '검색',
+  select: '선택',
   selectedCountOfRowCountRowsSelected:
     '{rowCount} 행 중 {selectedCount} 행 선택됨',
-  select: '선택',
   showAll: '모두 보이기',
   showAllColumns: '모든 열 보이기',
   showHideColumns: '열 숨기기/보이기',

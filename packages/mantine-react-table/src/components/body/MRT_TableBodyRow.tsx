@@ -2,27 +2,24 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableBodyRow.module.css';
 
-import { type DragEvent, memo, useMemo, useRef } from 'react';
+import { memo, useMemo, useRef } from 'react';
+import type { DragEvent } from 'react';
 
-import {
-  Box,
-  type TableProps,
-  TableTr,
-  type TableTrProps,
-} from '@mantine/core';
+import { Box, TableTr } from '@mantine/core';
+import type { TableProps, TableTrProps } from '@mantine/core';
 
 import { Memo_MRT_TableBodyCell, MRT_TableBodyCell } from './MRT_TableBodyCell';
 import { MRT_TableDetailPanel } from './MRT_TableDetailPanel';
 
-import {
-  type MRT_Cell,
-  type MRT_ColumnVirtualizer,
-  type MRT_DensityState,
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_RowVirtualizer,
-  type MRT_TableInstance,
-  type MRT_VirtualItem,
+import type {
+  MRT_Cell,
+  MRT_ColumnVirtualizer,
+  MRT_DensityState,
+  MRT_Row,
+  MRT_RowData,
+  MRT_RowVirtualizer,
+  MRT_TableInstance,
+  MRT_VirtualItem,
 } from '../../types';
 import { getIsRowSelected } from '../../utils/row.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
@@ -30,7 +27,7 @@ import { parseFromValuesOrFunc } from '../../utils/utils';
 interface Props<TData extends MRT_RowData> extends TableTrProps {
   columnVirtualizer?: MRT_ColumnVirtualizer;
   numRows?: number;
-  pinnedRowIds?: string[];
+  pinnedRowIds?: Array<string>;
   renderedRowIndex?: number;
   row: MRT_Row<TData>;
   rowVirtualizer?: MRT_RowVirtualizer;
@@ -53,7 +50,6 @@ export const MRT_TableBodyRow = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       enableRowOrdering,
       enableRowPinning,
@@ -67,6 +63,7 @@ export const MRT_TableBodyRow = <TData extends MRT_RowData>({
     },
     refs: { tableFooterRef, tableHeadRef },
     setHoveredRow,
+    state,
   } = table;
   const {
     density,
@@ -77,7 +74,7 @@ export const MRT_TableBodyRow = <TData extends MRT_RowData>({
     hoveredRow,
     isFullScreen,
     rowPinning,
-  } = getState();
+  } = state;
 
   const visibleCells = row.getVisibleCells();
 

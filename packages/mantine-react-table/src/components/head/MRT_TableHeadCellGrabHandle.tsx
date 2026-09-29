@@ -1,19 +1,22 @@
-import { type DragEvent, type RefObject } from 'react';
+import type { DragEvent, RefObject } from 'react';
 
-import { type ActionIconProps } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type MRT_CellValue,
-  type MRT_Column,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import { MRT_GrabHandleButton } from '../buttons/MRT_GrabHandleButton';
+
+import type {
+  MRT_CellValue,
+  MRT_Column,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { reorderColumn } from '../../utils/column.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { MRT_GrabHandleButton } from '../buttons/MRT_GrabHandleButton';
 
-interface Props<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends ActionIconProps {
+interface Props<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends ActionIconProps {
   column: MRT_Column<TData, TValue>;
   table: MRT_TableInstance<TData>;
   tableHeadCellRef: RefObject<HTMLTableCellElement>;
@@ -26,14 +29,14 @@ export const MRT_TableHeadCellGrabHandle = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: { enableColumnOrdering, mantineColumnDragHandleProps },
     setColumnOrder,
     setDraggingColumn,
     setHoveredColumn,
+    state,
   } = table;
   const { columnDef } = column;
-  const { columnOrder, draggingColumn, hoveredColumn } = getState();
+  const { columnOrder, draggingColumn, hoveredColumn } = state;
 
   const arg = { column, table };
   const actionIconProps = {
@@ -45,11 +48,7 @@ export const MRT_TableHeadCellGrabHandle = <TData extends MRT_RowData>({
   const handleDragStart = (event: DragEvent<HTMLButtonElement>) => {
     actionIconProps?.onDragStart?.(event);
     setDraggingColumn(column);
-    event.dataTransfer.setDragImage(
-      tableHeadCellRef.current as HTMLElement,
-      0,
-      0,
-    );
+    event.dataTransfer.setDragImage(tableHeadCellRef.current, 0, 0);
   };
 
   const handleDragEnd = (event: DragEvent<HTMLButtonElement>) => {

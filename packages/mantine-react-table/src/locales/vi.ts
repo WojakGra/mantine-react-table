@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_VI: MRT_Localization = {
   actions: 'Thao tác',
@@ -11,11 +11,11 @@ export const MRT_Localization_VI: MRT_Localization = {
   clearSelection: 'Xoá lựa chọn',
   clearSort: 'Huỷ sắp xếp',
   clickToCopy: 'Nhấn vào để sao chép',
-  copy: 'Sao chép',
-  columnActions: 'Lựa chọn',
-  copiedToClipboard: 'Sao chép vào bảng tạm',
   collapse: 'Thu gọn',
   collapseAll: 'Thu gọn tất cả',
+  columnActions: 'Lựa chọn',
+  copiedToClipboard: 'Sao chép vào bảng tạm',
+  copy: 'Sao chép',
   dropToGroupBy: 'Gộp dữ liệu theo {column}',
   edit: 'Chỉnh sửa',
   expand: 'Mở rộng',
@@ -34,9 +34,10 @@ export const MRT_Localization_VI: MRT_Localization = {
   filterFuzzy: 'Xấp xỉ',
   filterGreaterThan: 'Lớn hơn',
   filterGreaterThanOrEqualTo: 'Lớn hơn hoặc bằng',
-  filterInNumberRange: 'Trong khoảng',
   filterIncludesString: 'Bao gồm',
   filterIncludesStringSensitive: 'Bao gồm',
+  filteringByColumn: 'Lọc các kết quả có {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Trong khoảng',
   filterLessThan: 'Bé hớn',
   filterLessThanOrEqualTo: 'Bé hơn hoặc bằng',
   filterMode: 'Chế độ lọc: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_VI: MRT_Localization = {
   filterNotEquals: 'Khác',
   filterStartsWith: 'Bắt đầu bằng',
   filterWeakEquals: 'Bằng',
-  filteringByColumn: 'Lọc các kết quả có {column} - {filterType} {filterValue}',
   goToFirstPage: 'Tới trang đầu',
   goToLastPage: 'Tới trang cuối',
   goToNextPage: 'Tới trang tiếp theo',
@@ -72,9 +72,9 @@ export const MRT_Localization_VI: MRT_Localization = {
   rowsPerPage: 'Số hàng/trang',
   save: 'Lưu',
   search: 'Tìm kiếm',
+  select: 'Chọn',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount}/{rowCount} dòng đang được chọn',
-  select: 'Chọn',
   showAll: 'Hiển thị tất cả',
   showAllColumns: 'Hiện tất cả các cột',
   showHideColumns: 'Ẩn/hiện cột',

@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_RO: MRT_Localization = {
   actions: 'Acțiuni',
@@ -11,11 +11,11 @@ export const MRT_Localization_RO: MRT_Localization = {
   clearSelection: 'Curăță selecția',
   clearSort: 'Curăță sortarea',
   clickToCopy: 'Apasă pentru a copia',
-  copy: 'Copiază',
   collapse: 'Restrânge',
   collapseAll: 'Restrânge tot',
   columnActions: 'Acțiuni Coloană',
   copiedToClipboard: 'Copiat pe ecran',
+  copy: 'Copiază',
   dropToGroupBy: 'Aruncă pentru a grupa după {column}',
   edit: 'Modifică',
   expand: 'Extinde',
@@ -34,9 +34,10 @@ export const MRT_Localization_RO: MRT_Localization = {
   filterFuzzy: 'Neclar',
   filterGreaterThan: 'Mai mare ca',
   filterGreaterThanOrEqualTo: 'Mai mare sau egal cu',
-  filterInNumberRange: 'Între',
   filterIncludesString: 'Conține',
   filterIncludesStringSensitive: 'Conține',
+  filteringByColumn: 'Filtrare după {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Între',
   filterLessThan: 'Mai puțin decât',
   filterLessThanOrEqualTo: 'Mai Puțin Sau Egal Cu',
   filterMode: 'Mod filtrare: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_RO: MRT_Localization = {
   filterNotEquals: 'Nu sunt egale',
   filterStartsWith: 'Începe cu',
   filterWeakEquals: 'Egal',
-  filteringByColumn: 'Filtrare după {column} - {filterType} {filterValue}',
   goToFirstPage: 'Prima pagină',
   goToLastPage: 'Ultima pagină',
   goToNextPage: 'Următoarea pagină',
@@ -72,9 +72,9 @@ export const MRT_Localization_RO: MRT_Localization = {
   rowsPerPage: 'Linii per pagină',
   save: 'Salvează',
   search: 'Căutare',
+  select: 'Selectare',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} din {rowCount} linii selectate',
-  select: 'Selectare',
   showAll: 'Afișează tot',
   showAllColumns: 'Afișează toate coloanele',
   showHideColumns: 'Afișează/Ascunde coloanele',

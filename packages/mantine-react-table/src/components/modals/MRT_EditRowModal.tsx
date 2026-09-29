@@ -1,13 +1,11 @@
-import { Flex, Modal, type ModalProps, Stack } from '@mantine/core';
+import { Flex, Modal, Stack } from '@mantine/core';
+import type { ModalProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
-import { parseFromValuesOrFunc } from '../../utils/utils';
 import { MRT_EditActionButtons } from '../buttons/MRT_EditActionButtons';
 import { MRT_EditCellTextInput } from '../inputs/MRT_EditCellTextInput';
+
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
+import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends Partial<ModalProps> {
   open: boolean;
@@ -20,7 +18,6 @@ export const MRT_EditRowModal = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       mantineCreateRowModalProps,
       mantineEditRowModalProps,
@@ -31,8 +28,9 @@ export const MRT_EditRowModal = <TData extends MRT_RowData>({
     },
     setCreatingRow,
     setEditingRow,
+    state,
   } = table;
-  const { creatingRow, editingRow } = getState();
+  const { creatingRow, editingRow } = state;
   const row = (creatingRow ?? editingRow) as MRT_Row<TData>;
 
   const arg = { row, table };
@@ -57,7 +55,7 @@ export const MRT_EditRowModal = <TData extends MRT_RowData>({
       onEditingRowCancel?.({ row, table });
       setEditingRow(null);
     }
-    row._valuesCache = {} as any; //reset values cache
+    row._valuesCache = {} as any; // reset values cache
     modalProps.onClose?.();
   };
 

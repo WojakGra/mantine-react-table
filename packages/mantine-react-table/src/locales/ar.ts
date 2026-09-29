@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_AR: MRT_Localization = {
   actions: 'إجراءات',
@@ -11,11 +11,11 @@ export const MRT_Localization_AR: MRT_Localization = {
   clearSelection: 'إعادة تعيين التحديد',
   clearSort: 'إعادة تعيين الفرز',
   clickToCopy: 'انقر للنسخ',
-  copy: 'نسخ',
   collapse: 'إخفاء',
   collapseAll: 'إخفاء الكل',
   columnActions: 'إجراءات العمود',
   copiedToClipboard: 'نسخ إلى الحافظة',
+  copy: 'نسخ',
   dropToGroupBy: 'أفلت للمجموعة حسب {column}',
   edit: 'تعديل',
   expand: 'إظهار',
@@ -34,9 +34,10 @@ export const MRT_Localization_AR: MRT_Localization = {
   filterFuzzy: 'غامض',
   filterGreaterThan: 'أكثر من',
   filterGreaterThanOrEqualTo: 'أكبر من أو يساوي',
-  filterInNumberRange: 'بين',
   filterIncludesString: 'يتضمن',
   filterIncludesStringSensitive: 'يتضمن',
+  filteringByColumn: 'التصفية حسب {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'بين',
   filterLessThan: 'أقل من',
   filterLessThanOrEqualTo: 'أقل من أو يساوي',
   filterMode: 'وضع التصفية: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_AR: MRT_Localization = {
   filterNotEquals: 'لا يساوي',
   filterStartsWith: ' يبدا ب',
   filterWeakEquals: 'يساوي',
-  filteringByColumn: 'التصفية حسب {column} - {filterType} {filterValue}',
   goToFirstPage: 'الصفحة الأولى',
   goToLastPage: 'الصفحة الأخيرة',
   goToNextPage: 'الصفحة التالية',
@@ -72,9 +72,9 @@ export const MRT_Localization_AR: MRT_Localization = {
   rowsPerPage: 'عدد الصفوف في الصفحة',
   save: 'حفظ',
   search: 'بحث',
+  select: 'اختيار',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} ل {rowCount} row(s) المحدد',
-  select: 'اختيار',
   showAll: 'عرض الكل',
   showAllColumns: 'إظهار كافة الأعمدة',
   showHideColumns: 'إظهار / إخفاء الأعمدة',

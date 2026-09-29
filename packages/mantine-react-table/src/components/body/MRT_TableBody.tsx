@@ -4,28 +4,26 @@ import classes from './MRT_TableBody.module.css';
 
 import { memo, useMemo } from 'react';
 
-import {
-  type TableProps,
-  TableTbody,
-  type TableTbodyProps,
-} from '@mantine/core';
-
-import { MRT_TableBodyEmptyRow } from './MRT_TableBodyEmptyRow';
-import { Memo_MRT_TableBodyRow, MRT_TableBodyRow } from './MRT_TableBodyRow';
+import { TableTbody } from '@mantine/core';
+import type { TableProps, TableTbodyProps } from '@mantine/core';
 
 import { useMRT_Rows } from '../../hooks/useMRT_Rows';
 import { useMRT_RowVirtualizer } from '../../hooks/useMRT_RowVirtualizer';
-import {
-  type MRT_ColumnVirtualizer,
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-  type MRT_VirtualItem,
+import { MRT_TableBodyEmptyRow } from './MRT_TableBodyEmptyRow';
+import { Memo_MRT_TableBodyRow, MRT_TableBodyRow } from './MRT_TableBodyRow';
+
+import type {
+  MRT_ColumnVirtualizer,
+  MRT_Row,
+  MRT_RowData,
+  MRT_TableInstance,
+  MRT_VirtualItem,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
-export interface MRT_TableBodyProps<TData extends MRT_RowData>
-  extends TableTbodyProps {
+export interface MRT_TableBodyProps<
+  TData extends MRT_RowData,
+> extends TableTbodyProps {
   columnVirtualizer?: MRT_ColumnVirtualizer;
   table: MRT_TableInstance<TData>;
   tableProps: Partial<TableProps>;
@@ -41,7 +39,6 @@ export const MRT_TableBody = <TData extends MRT_RowData>({
     getBottomRows,
     getIsSomeRowsPinned,
     getRowModel,
-    getState,
     getTopRows,
     options: {
       enableStickyFooter,
@@ -53,8 +50,9 @@ export const MRT_TableBody = <TData extends MRT_RowData>({
       rowPinningDisplayMode,
     },
     refs: { tableFooterRef, tableHeadRef },
+    state,
   } = table;
-  const { isFullScreen, rowPinning } = getState();
+  const { isFullScreen, rowPinning } = state;
 
   const tableBodyProps = {
     ...parseFromValuesOrFunc(mantineTableBodyProps, { table }),

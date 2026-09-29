@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_HU: MRT_Localization = {
   actions: 'Műveletek',
@@ -11,11 +11,11 @@ export const MRT_Localization_HU: MRT_Localization = {
   clearSelection: 'Kiválasztás törlése',
   clearSort: 'Rendezés törlése',
   clickToCopy: 'Kattintson a másoláshoz',
-  copy: 'Másolás',
   collapse: 'Összecsukás',
   collapseAll: 'Mindet összecsuk',
   columnActions: 'Oszlop műveletek',
   copiedToClipboard: 'Vágólapra másolva',
+  copy: 'Másolás',
   dropToGroupBy: 'Húzza ide a csoportosításhoz: {column}',
   edit: 'Szerkesztés',
   expand: 'Kibontás',
@@ -34,9 +34,10 @@ export const MRT_Localization_HU: MRT_Localization = {
   filterFuzzy: 'Pontatlan',
   filterGreaterThan: 'Nagyobb, mint',
   filterGreaterThanOrEqualTo: 'Nagyobb vagy egyenlő, mint',
-  filterInNumberRange: 'Között',
   filterIncludesString: 'Tartalmazza',
   filterIncludesStringSensitive: 'Tartalmazza',
+  filteringByColumn: '{column} szűrése - {filterType} {filterValue}',
+  filterInNumberRange: 'Között',
   filterLessThan: 'Kisebb, mint',
   filterLessThanOrEqualTo: 'Kisebb vagy egyenlő, mint',
   filterMode: 'Szűrő mód: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_HU: MRT_Localization = {
   filterNotEquals: 'Nem egyenlő',
   filterStartsWith: 'Kezdődik',
   filterWeakEquals: 'Egyenlő',
-  filteringByColumn: '{column} szűrése - {filterType} {filterValue}',
   goToFirstPage: 'Ugrás az első oldalra',
   goToLastPage: 'Ugrás az utolsó oldalra',
   goToNextPage: 'Ugrás a következő oldalra',
@@ -72,9 +72,9 @@ export const MRT_Localization_HU: MRT_Localization = {
   rowsPerPage: 'Sorok oldalanként',
   save: 'Mentés',
   search: 'Keresés',
+  select: 'Kiválasztás',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} kiválasztva {rowCount} sorból',
-  select: 'Kiválasztás',
   showAll: 'Összes mutatása',
   showAllColumns: 'Összes oszlop mutatása',
   showHideColumns: 'Oszlopok mutatása/elrejtése',

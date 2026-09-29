@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_SR_CYRL_RS: MRT_Localization = {
   actions: 'Акције',
@@ -11,11 +11,11 @@ export const MRT_Localization_SR_CYRL_RS: MRT_Localization = {
   clearSelection: 'Поништи избор',
   clearSort: 'Поништи сортирање',
   clickToCopy: 'Кликни да копираш',
-  copy: 'Копирај',
   collapse: 'Рашири',
   collapseAll: 'Рашири све',
   columnActions: 'Акције над колонама',
   copiedToClipboard: 'Копирани у clipboard',
+  copy: 'Копирај',
   dropToGroupBy: 'Убаци у групу по {column}',
   edit: 'Измени',
   expand: 'Прошири',
@@ -34,9 +34,10 @@ export const MRT_Localization_SR_CYRL_RS: MRT_Localization = {
   filterFuzzy: 'Фази',
   filterGreaterThan: 'Веће',
   filterGreaterThanOrEqualTo: 'Веће или једнако',
-  filterInNumberRange: 'Између',
   filterIncludesString: 'Садржи',
   filterIncludesStringSensitive: 'Садржи',
+  filteringByColumn: 'Филтрирање по {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Између',
   filterLessThan: 'Мање',
   filterLessThanOrEqualTo: 'Мање или једнако',
   filterMode: 'Режим филтрирања: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_SR_CYRL_RS: MRT_Localization = {
   filterNotEquals: 'Није једнако',
   filterStartsWith: 'Почиње са',
   filterWeakEquals: 'Једнако',
-  filteringByColumn: 'Филтрирање по {column} - {filterType} {filterValue}',
   goToFirstPage: 'Иди на прву страницу',
   goToLastPage: 'Иди на последњу страницу',
   goToNextPage: 'Иди на следећу страницу',
@@ -72,9 +72,9 @@ export const MRT_Localization_SR_CYRL_RS: MRT_Localization = {
   rowsPerPage: 'Редова по страници',
   save: 'Сними',
   search: 'Претражи',
+  select: 'Означи',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} од {rowCount} редова означено',
-  select: 'Означи',
   showAll: 'Прикажи све',
   showAllColumns: 'Прикажи све колоне',
   showHideColumns: 'Прикажи/сакриј колоне',

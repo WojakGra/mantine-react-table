@@ -8,11 +8,7 @@ import { Button, Flex, Menu } from '@mantine/core';
 
 import { MRT_ShowHideColumnsMenuItems } from './MRT_ShowHideColumnsMenuItems';
 
-import {
-  type MRT_Column,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Column, MRT_RowData, MRT_TableInstance } from '../../types';
 import { getDefaultColumnOrderIds } from '../../utils/displayColumn.utils';
 
 interface Props<TData extends MRT_RowData> {
@@ -26,20 +22,20 @@ export const MRT_ShowHideColumnsMenu = <TData extends MRT_RowData>({
     getAllColumns,
     getAllLeafColumns,
     getCenterLeafColumns,
+    getEndLeafColumns,
     getIsAllColumnsVisible,
     getIsSomeColumnsPinned,
     getIsSomeColumnsVisible,
-    getLeftLeafColumns,
-    getRightLeafColumns,
-    getState,
+    getStartLeafColumns,
     options: {
       enableColumnOrdering,
       enableColumnPinning,
       enableHiding,
       localization,
     },
+    state,
   } = table;
-  const { columnOrder, columnPinning } = getState();
+  const { columnOrder, columnPinning } = state;
 
   const handleToggleAllColumns = (value?: boolean) => {
     getAllLeafColumns()
@@ -54,11 +50,11 @@ export const MRT_ShowHideColumnsMenu = <TData extends MRT_RowData>({
       !columns.some((col) => col.columnDef.columnDefType === 'group')
     ) {
       return [
-        ...getLeftLeafColumns(),
+        ...getStartLeafColumns(),
         ...Array.from(new Set(columnOrder)).map((colId) =>
           getCenterLeafColumns().find((col) => col?.id === colId),
         ),
-        ...getRightLeafColumns(),
+        ...getEndLeafColumns(),
       ].filter(Boolean);
     }
     return columns;
@@ -67,9 +63,9 @@ export const MRT_ShowHideColumnsMenu = <TData extends MRT_RowData>({
     columnPinning,
     getAllColumns(),
     getCenterLeafColumns(),
-    getLeftLeafColumns(),
-    getRightLeafColumns(),
-  ]) as MRT_Column<TData>[];
+    getStartLeafColumns(),
+    getEndLeafColumns(),
+  ]) as Array<MRT_Column<TData>>;
 
   const [hoveredColumn, setHoveredColumn] = useState<MRT_Column<TData> | null>(
     null,
@@ -91,7 +87,13 @@ export const MRT_ShowHideColumnsMenu = <TData extends MRT_RowData>({
           <Button
             onClick={() =>
               table.setColumnOrder(
-                getDefaultColumnOrderIds(table.options as any, true),
+                getDefaultColumnOrderIds(
+                  {
+                    ...table.options,
+                    state,
+                  },
+                  true,
+                ),
               )
             }
             variant="subtle"

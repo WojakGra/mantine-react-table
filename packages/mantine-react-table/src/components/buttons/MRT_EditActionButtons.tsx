@@ -2,13 +2,10 @@ import clsx from 'clsx';
 
 import classes from './MRT_EditActionButtons.module.css';
 
-import { ActionIcon, Box, type BoxProps, Button, Tooltip } from '@mantine/core';
+import { ActionIcon, Box, Button, Tooltip } from '@mantine/core';
+import type { BoxProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends BoxProps {
   row: MRT_Row<TData>;
@@ -23,7 +20,6 @@ export const MRT_EditActionButtons = <TData extends MRT_RowData>({
   ...rest
 }: Props<TData>) => {
   const {
-    getState,
     options: {
       icons: { IconCircleX, IconDeviceFloppy },
       localization,
@@ -35,8 +31,9 @@ export const MRT_EditActionButtons = <TData extends MRT_RowData>({
     refs: { editInputRefs },
     setCreatingRow,
     setEditingRow,
+    state,
   } = table;
-  const { creatingRow, editingRow, isSaving } = getState();
+  const { creatingRow, editingRow, isSaving } = state;
 
   const isCreating = creatingRow?.id === row.id;
   const isEditing = editingRow?.id === row.id;
@@ -49,17 +46,17 @@ export const MRT_EditActionButtons = <TData extends MRT_RowData>({
       onEditingRowCancel?.({ row, table });
       setEditingRow(null);
     }
-    row._valuesCache = {} as any; //reset values cache
+    row._valuesCache = {} as any; // reset values cache
   };
 
   const handleSubmitRow = () => {
-    //look for auto-filled input values
+    // look for auto-filled input values
     Object.values(editInputRefs?.current)
       .filter((inputRef) => row.id === inputRef?.name?.split('_')?.[0])
       ?.forEach((input) => {
         if (
           input.value !== undefined &&
-          Object.hasOwn(row?._valuesCache as object, input.name)
+          Object.hasOwn(row?._valuesCache, input.name)
         ) {
           // @ts-ignore
           row._valuesCache[input.name] = input.value;

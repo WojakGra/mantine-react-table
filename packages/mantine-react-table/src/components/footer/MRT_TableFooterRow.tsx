@@ -2,17 +2,18 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableFooterRow.module.css';
 
-import { Box, TableTr, type TableTrProps } from '@mantine/core';
+import { Box, TableTr } from '@mantine/core';
+import type { TableTrProps } from '@mantine/core';
 
 import { MRT_TableFooterCell } from './MRT_TableFooterCell';
 
-import {
-  type MRT_ColumnVirtualizer,
-  type MRT_Header,
-  type MRT_HeaderGroup,
-  type MRT_RowData,
-  type MRT_TableInstance,
-  type MRT_VirtualItem,
+import type {
+  MRT_ColumnVirtualizer,
+  MRT_Header,
+  MRT_HeaderGroup,
+  MRT_RowData,
+  MRT_TableInstance,
+  MRT_VirtualItem,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 

@@ -2,33 +2,28 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableHeadCell.module.css';
 
-import {
-  type CSSProperties,
-  type DragEventHandler,
-  type MutableRefObject,
-  type ReactNode,
-  useMemo,
-  useState,
-} from 'react';
+import { useMemo, useState } from 'react';
+import type { CSSProperties, DragEventHandler, ReactNode } from 'react';
 
-import { Flex, TableTh, type TableThProps, useDirection } from '@mantine/core';
+import { Flex, TableTh, useDirection } from '@mantine/core';
+import type { TableThProps } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
 
+import { MRT_ColumnActionMenu } from '../menus/MRT_ColumnActionMenu';
 import { MRT_TableHeadCellFilterContainer } from './MRT_TableHeadCellFilterContainer';
 import { MRT_TableHeadCellFilterLabel } from './MRT_TableHeadCellFilterLabel';
 import { MRT_TableHeadCellGrabHandle } from './MRT_TableHeadCellGrabHandle';
 import { MRT_TableHeadCellResizeHandle } from './MRT_TableHeadCellResizeHandle';
 import { MRT_TableHeadCellSortLabel } from './MRT_TableHeadCellSortLabel';
 
-import {
-  type MRT_ColumnVirtualizer,
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  MRT_ColumnVirtualizer,
+  MRT_Header,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { parseCSSVarId } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
-import { MRT_ColumnActionMenu } from '../menus/MRT_ColumnActionMenu';
 
 interface Props<TData extends MRT_RowData> extends TableThProps {
   columnVirtualizer?: MRT_ColumnVirtualizer;
@@ -46,7 +41,6 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
 }: Props<TData>) => {
   const direction = useDirection();
   const {
-    getState,
     options: {
       columnFilterDisplayMode,
       columnResizeDirection,
@@ -63,9 +57,9 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
     },
     refs: { tableHeadCellRefs },
     setHoveredColumn,
+    state,
   } = table;
-  const { columnSizingInfo, draggingColumn, grouping, hoveredColumn } =
-    getState();
+  const { columnResizing, draggingColumn, grouping, hoveredColumn } = state;
   const { column } = header;
   const { columnDef } = column;
   const { columnDefType } = columnDef;
@@ -161,32 +155,32 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
       colSpan={header.colSpan}
       data-column-pinned={isColumnPinned || undefined}
       data-dragging-column={isDraggingColumn || undefined}
-      data-first-right-pinned={
-        (isColumnPinned === 'right' &&
-          column.getIsFirstColumn(isColumnPinned)) ||
+      data-first-end-pinned={
+        (isColumnPinned === 'end' && column.getIsFirstColumn(isColumnPinned)) ||
         undefined
       }
       data-hovered-column-target={isHoveredColumn || undefined}
       data-index={renderedHeaderIndex}
-      data-last-left-pinned={
-        (isColumnPinned === 'left' && column.getIsLastColumn(isColumnPinned)) ||
+      data-last-start-pinned={
+        (isColumnPinned === 'start' &&
+          column.getIsLastColumn(isColumnPinned)) ||
         undefined
       }
       data-resizing={
         (columnResizeMode === 'onChange' &&
-          columnSizingInfo?.isResizingColumn === column.id &&
+          columnResizing?.isResizingColumn === column.id &&
           columnResizeDirection) ||
         undefined
       }
       {...tableCellProps}
       __vars={{
-        '--mrt-table-cell-left':
-          isColumnPinned === 'left'
-            ? `${column.getStart(isColumnPinned)}`
-            : undefined,
-        '--mrt-table-cell-right':
-          isColumnPinned === 'right'
+        '--mrt-table-cell-end':
+          isColumnPinned === 'end'
             ? `${column.getAfter(isColumnPinned)}`
+            : undefined,
+        '--mrt-table-cell-start':
+          isColumnPinned === 'start'
+            ? `${column.getStart(isColumnPinned)}`
             : undefined,
       }}
       align={
@@ -207,9 +201,7 @@ export const MRT_TableHeadCell = <TData extends MRT_RowData>({
       ref={(node: HTMLTableCellElement) => {
         if (node) {
           tableHeadCellRefs.current[column.id] = node;
-          (
-            isHoveredHeadCellRef as MutableRefObject<HTMLTableCellElement>
-          ).current = node;
+          (isHoveredHeadCellRef as any).current = node;
           if (columnDefType !== 'group') {
             columnVirtualizer?.measureElement?.(node);
           }

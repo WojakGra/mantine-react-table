@@ -2,25 +2,23 @@ import clsx from 'clsx';
 
 import classes from './MRT_CopyButton.module.css';
 
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
-import {
-  CopyButton,
-  Tooltip,
-  UnstyledButton,
-  type UnstyledButtonProps,
-} from '@mantine/core';
+import { CopyButton, Tooltip, UnstyledButton } from '@mantine/core';
+import type { UnstyledButtonProps } from '@mantine/core';
 
-import {
-  type MRT_Cell,
-  type MRT_CellValue,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  MRT_Cell,
+  MRT_CellValue,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
-interface Props<TData extends MRT_RowData, TValue = MRT_CellValue>
-  extends UnstyledButtonProps {
+interface Props<
+  TData extends MRT_RowData,
+  TValue = MRT_CellValue,
+> extends UnstyledButtonProps {
   cell: MRT_Cell<TData, TValue>;
   children: ReactNode;
   table: MRT_TableInstance<TData>;

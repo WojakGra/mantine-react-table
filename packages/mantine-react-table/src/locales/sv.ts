@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_SV: MRT_Localization = {
   actions: 'Åtgärder',
@@ -11,11 +11,11 @@ export const MRT_Localization_SV: MRT_Localization = {
   clearSelection: 'Rensa val',
   clearSort: 'Rensa sortering',
   clickToCopy: 'Klicka för att kopiera',
-  copy: 'Kopiera',
   collapse: 'Stäng',
   collapseAll: 'Stäng alla',
   columnActions: 'Kolumnåtgärd',
   copiedToClipboard: 'Kopierade till urklipp',
+  copy: 'Kopiera',
   dropToGroupBy: 'Släpp för att grupp efter {column}',
   edit: 'Redigera',
   expand: 'Expandera',
@@ -34,9 +34,10 @@ export const MRT_Localization_SV: MRT_Localization = {
   filterFuzzy: 'Fuzzy',
   filterGreaterThan: 'Större än',
   filterGreaterThanOrEqualTo: 'Större än eller lika med',
-  filterInNumberRange: 'Mellan',
   filterIncludesString: 'Innehåller',
   filterIncludesStringSensitive: 'Innehåller',
+  filteringByColumn: 'Filtrering efter {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Mellan',
   filterLessThan: 'Mindre än',
   filterLessThanOrEqualTo: 'Mindre än eller lika med',
   filterMode: 'Filterläge: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_SV: MRT_Localization = {
   filterNotEquals: 'Inte lika med',
   filterStartsWith: 'Börjar med',
   filterWeakEquals: 'Lika med',
-  filteringByColumn: 'Filtrering efter {column} - {filterType} {filterValue}',
   goToFirstPage: 'Gå till första sidan',
   goToLastPage: 'Gå till sista sidan',
   goToNextPage: 'Gå till nästa sida',
@@ -72,9 +72,9 @@ export const MRT_Localization_SV: MRT_Localization = {
   rowsPerPage: 'Rader per sida',
   save: 'Spara',
   search: 'Sök',
+  select: 'Välj',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} av {rowCount} rad(er) valda',
-  select: 'Välj',
   showAll: 'Visa alla',
   showAllColumns: 'Visa alla kolumner',
   showHideColumns: 'Visa/Göm kolumner',

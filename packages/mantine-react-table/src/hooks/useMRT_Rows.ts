@@ -1,19 +1,15 @@
 import { useMemo } from 'react';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../types';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../types';
 import { getMRT_Rows } from '../utils/row.utils';
 
 export const useMRT_Rows = <TData extends MRT_RowData>(
   table: MRT_TableInstance<TData>,
-): MRT_Row<TData>[] => {
+): Array<MRT_Row<TData>> => {
   const {
     getRowModel,
-    getState,
     options: { data, enableGlobalFilterRankedResults, positionCreatingRow },
+    state,
   } = table;
   const {
     creatingRow,
@@ -22,7 +18,7 @@ export const useMRT_Rows = <TData extends MRT_RowData>(
     pagination,
     rowPinning,
     sorting,
-  } = getState();
+  } = state;
 
   const rows = useMemo(
     () => getMRT_Rows(table),

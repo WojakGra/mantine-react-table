@@ -1,15 +1,12 @@
-import { ActionIcon, type ActionIconProps, Menu, Tooltip } from '@mantine/core';
+import { ActionIcon, Menu, Tooltip } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type HTMLPropsRef,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
 import { MRT_ShowHideColumnsMenu } from '../menus/MRT_ShowHideColumnsMenu';
 
+import type { HTMLPropsRef, MRT_RowData, MRT_TableInstance } from '../../types';
+
 interface Props<TData extends MRT_RowData>
-  extends ActionIconProps,
-    HTMLPropsRef<HTMLButtonElement> {
+  extends ActionIconProps, HTMLPropsRef<HTMLButtonElement> {
   table: MRT_TableInstance<TData>;
 }
 

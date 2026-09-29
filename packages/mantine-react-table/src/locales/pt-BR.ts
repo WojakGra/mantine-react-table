@@ -1,4 +1,4 @@
-import { type MRT_Localization } from '..';
+import type { MRT_Localization } from '..';
 
 export const MRT_Localization_PT_BR: MRT_Localization = {
   actions: 'Ações',
@@ -11,11 +11,11 @@ export const MRT_Localization_PT_BR: MRT_Localization = {
   clearSelection: 'Limpar seleção',
   clearSort: 'Limpar classificações',
   clickToCopy: 'Clique para copiar',
-  copy: 'Copiar',
   collapse: 'Recolher',
   collapseAll: 'Recolher tudo',
   columnActions: 'Ações das colunas',
   copiedToClipboard: 'Copiado para área de transferência',
+  copy: 'Copiar',
   dropToGroupBy: 'Solte para agrupar por {column}',
   edit: 'Editar',
   expand: 'Expandir',
@@ -34,9 +34,10 @@ export const MRT_Localization_PT_BR: MRT_Localization = {
   filterFuzzy: 'Impreciso',
   filterGreaterThan: 'Maior que',
   filterGreaterThanOrEqualTo: 'Maior ou igual que',
-  filterInNumberRange: 'Entre',
   filterIncludesString: 'Contém',
   filterIncludesStringSensitive: 'Contém',
+  filteringByColumn: 'Filtrando por {column} - {filterType} {filterValue}',
+  filterInNumberRange: 'Entre',
   filterLessThan: 'Menor que',
   filterLessThanOrEqualTo: 'Menor ou igual que',
   filterMode: 'Modo de filtro: {filterType}',
@@ -44,7 +45,6 @@ export const MRT_Localization_PT_BR: MRT_Localization = {
   filterNotEquals: 'Não é igual',
   filterStartsWith: 'Começa com',
   filterWeakEquals: 'Igual',
-  filteringByColumn: 'Filtrando por {column} - {filterType} {filterValue}',
   goToFirstPage: 'Ir para a primeira página',
   goToLastPage: 'Ir para a última página',
   goToNextPage: 'Ir para a próxima página',
@@ -72,9 +72,9 @@ export const MRT_Localization_PT_BR: MRT_Localization = {
   rowsPerPage: 'Linhas por página',
   save: 'Salvar',
   search: 'Pesquisar',
+  select: 'Selecionar',
   selectedCountOfRowCountRowsSelected:
     '{selectedCount} de {rowCount} linha(s) selecionada(s)',
-  select: 'Selecionar',
   showAll: 'Mostrar tudo',
   showAllColumns: 'Mostrar todas as colunas',
   showHideColumns: 'Mostrar/Ocultar colunas',

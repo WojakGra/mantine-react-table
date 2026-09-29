@@ -1,14 +1,11 @@
-import { type DragEvent, type RefObject } from 'react';
+import type { DragEvent, RefObject } from 'react';
 
-import { type ActionIconProps } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
-import { parseFromValuesOrFunc } from '../../utils/utils';
 import { MRT_GrabHandleButton } from '../buttons/MRT_GrabHandleButton';
+
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
+import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends ActionIconProps {
   row: MRT_Row<TData>;
@@ -36,8 +33,8 @@ export const MRT_TableBodyRowGrabHandle = <TData extends MRT_RowData>({
 
   const handleDragStart = (event: DragEvent<HTMLButtonElement>) => {
     actionIconProps?.onDragStart?.(event);
-    event.dataTransfer.setDragImage(rowRef.current as HTMLElement, 0, 0);
-    table.setDraggingRow(row as any);
+    event.dataTransfer.setDragImage(rowRef.current, 0, 0);
+    table.setDraggingRow(row);
   };
 
   const handleDragEnd = (event: DragEvent<HTMLButtonElement>) => {

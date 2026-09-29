@@ -1,8 +1,9 @@
 import { MRT_ToggleRowActionMenuButton } from '../../components/buttons/MRT_ToggleRowActionMenuButton';
-import {
-  type MRT_ColumnDef,
-  type MRT_RowData,
-  type MRT_StatefulTableOptions,
+
+import type {
+  MRT_ColumnDef,
+  MRT_RowData,
+  MRT_StatefulTableOptions,
 } from '../../types';
 import { defaultDisplayColumnProps } from '../../utils/displayColumn.utils';
 

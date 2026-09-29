@@ -2,7 +2,8 @@ import clsx from 'clsx';
 
 import classes from './MRT_FilterTextInput.module.css';
 
-import { type MouseEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
 
 import {
   ActionIcon,
@@ -12,17 +13,13 @@ import {
   MultiSelect,
   Select,
   TextInput,
-  type TextInputProps,
 } from '@mantine/core';
+import type { TextInputProps } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { useDebouncedValue } from '@mantine/hooks';
 
 import { localizedFilterOption } from '../../fns/filterFns';
-import {
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Header, MRT_RowData, MRT_TableInstance } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
 interface Props<TData extends MRT_RowData> extends TextInputProps {
@@ -129,7 +126,7 @@ export const MRT_FilterTextInput = <TData extends MRT_RowData>({
               .sort((a, b) => a.localeCompare(b))
           : [])
       )
-        //@ts-ignore
+        // @ts-ignore
         .filter((o: any) => o !== undefined && o !== null),
     [
       autoCompleteProps?.data,
@@ -146,7 +143,7 @@ export const MRT_FilterTextInput = <TData extends MRT_RowData>({
 
   const [filterValue, setFilterValue] = useState<any>(() =>
     isMultiSelectFilter
-      ? (column.getFilterValue() as string[]) || []
+      ? (column.getFilterValue() as Array<string>) || []
       : isRangeFilter
         ? (column.getFilterValue() as [string, string])?.[
             rangeFilterIndex as number
@@ -159,7 +156,7 @@ export const MRT_FilterTextInput = <TData extends MRT_RowData>({
     manualFiltering ? 400 : 200,
   );
 
-  //send debounced filterValue to table instance
+  // send debounced filterValue to table instance
   useEffect(() => {
     if (!isMounted.current) return;
     if (isRangeFilter) {
@@ -174,7 +171,7 @@ export const MRT_FilterTextInput = <TData extends MRT_RowData>({
     }
   }, [debouncedFilterValue]);
 
-  //receive table filter value and set it to local state
+  // receive table filter value and set it to local state
   useEffect(() => {
     if (!isMounted.current) {
       isMounted.current = true;
@@ -405,7 +402,7 @@ export const MRT_FilterTextInput = <TData extends MRT_RowData>({
         if (node) {
           filterInputRefs.current[`${column.id}-${rangeFilterIndex ?? 0}`] =
             node;
-          if (textInputProps.ref) {
+          if (textInputProps.ref && typeof textInputProps.ref === 'object') {
             textInputProps.ref.current = node;
           }
         }

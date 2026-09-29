@@ -2,15 +2,12 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableFooterCell.module.css';
 
-import { type CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
 
-import { TableTh, type TableThProps, useDirection } from '@mantine/core';
+import { TableTh, useDirection } from '@mantine/core';
+import type { TableThProps } from '@mantine/core';
 
-import {
-  type MRT_Header,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Header, MRT_RowData, MRT_TableInstance } from '../../types';
 import { parseCSSVarId } from '../../utils/style.utils';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
@@ -66,14 +63,14 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
     <TableTh
       colSpan={footer.colSpan}
       data-column-pinned={isColumnPinned || undefined}
-      data-first-right-pinned={
-        (isColumnPinned === 'right' &&
-          column.getIsFirstColumn(isColumnPinned)) ||
+      data-first-end-pinned={
+        (isColumnPinned === 'end' && column.getIsFirstColumn(isColumnPinned)) ||
         undefined
       }
       data-index={renderedColumnIndex}
-      data-last-left-pinned={
-        (isColumnPinned === 'left' && column.getIsLastColumn(isColumnPinned)) ||
+      data-last-start-pinned={
+        (isColumnPinned === 'start' &&
+          column.getIsLastColumn(isColumnPinned)) ||
         undefined
       }
       {...tableCellProps}
@@ -85,13 +82,13 @@ export const MRT_TableFooterCell = <TData extends MRT_RowData>({
             : direction.dir === 'rtl'
               ? 'right'
               : 'left'),
-        '--mrt-table-cell-left':
-          isColumnPinned === 'left'
-            ? `${column.getStart(isColumnPinned)}`
-            : undefined,
-        '--mrt-table-cell-right':
-          isColumnPinned === 'right'
+        '--mrt-table-cell-end':
+          isColumnPinned === 'end'
             ? `${column.getAfter(isColumnPinned)}`
+            : undefined,
+        '--mrt-table-cell-start':
+          isColumnPinned === 'start'
+            ? `${column.getStart(isColumnPinned)}`
             : undefined,
         ...tableCellProps?.__vars,
       }}

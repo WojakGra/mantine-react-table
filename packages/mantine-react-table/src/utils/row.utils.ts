@@ -1,22 +1,17 @@
-import { type ChangeEvent, type MouseEvent } from 'react';
+import type { ChangeEvent, MouseEvent } from 'react';
 
 import { rankGlobalFuzzy } from '../fns/sortingFns';
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../types';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../types';
 import { parseFromValuesOrFunc } from './utils';
 
 export const getMRT_Rows = <TData extends MRT_RowData>(
   table: MRT_TableInstance<TData>,
   all?: boolean,
-): MRT_Row<TData>[] => {
+): Array<MRT_Row<TData>> => {
   const {
     getCenterRows,
-    getPrePaginationRowModel,
+    getPrePaginatedRowModel,
     getRowModel,
-    getState,
     getTopRows,
     options: {
       createDisplayMode,
@@ -26,24 +21,23 @@ export const getMRT_Rows = <TData extends MRT_RowData>(
       positionCreatingRow,
       rowPinningDisplayMode,
     },
+    state,
   } = table;
-  const { creatingRow, pagination } = getState();
+  const { creatingRow, pagination } = state;
 
   const isRankingRows = getIsRankingRows(table);
 
-  let rows: MRT_Row<TData>[] = [];
+  let rows: Array<MRT_Row<TData>>;
   if (!isRankingRows) {
     rows =
       !enableRowPinning || rowPinningDisplayMode?.includes('sticky')
         ? all
-          ? getPrePaginationRowModel().rows
+          ? getPrePaginatedRowModel().rows
           : getRowModel().rows
         : getCenterRows();
   } else {
     // fuzzy ranking adjustments
-    rows = getPrePaginationRowModel().rows.sort((a, b) =>
-      rankGlobalFuzzy(a, b),
-    );
+    rows = getPrePaginatedRowModel().rows.sort((a, b) => rankGlobalFuzzy(a, b));
     if (enablePagination && !manualPagination && !all) {
       const start = pagination.pageIndex * pagination.pageSize;
       rows = rows.slice(start, start + pagination.pageSize);
@@ -89,7 +83,6 @@ export const getCanRankRows = <TData extends MRT_RowData>(
   table: MRT_TableInstance<TData>,
 ) => {
   const {
-    getState,
     options: {
       enableGlobalFilterRankedResults,
       manualExpanding,
@@ -97,8 +90,9 @@ export const getCanRankRows = <TData extends MRT_RowData>(
       manualGrouping,
       manualSorting,
     },
+    state,
   } = table;
-  const { expanded, globalFilterFn } = getState();
+  const { expanded, globalFilterFn } = state;
 
   return (
     !manualExpanding &&
@@ -115,7 +109,7 @@ export const getCanRankRows = <TData extends MRT_RowData>(
 export const getIsRankingRows = <TData extends MRT_RowData>(
   table: MRT_TableInstance<TData>,
 ) => {
-  const { globalFilter, sorting } = table.getState();
+  const { globalFilter, sorting } = table.state;
 
   return (
     getCanRankRows(table) &&
@@ -158,7 +152,6 @@ export const getMRT_RowSelectionHandler =
     value?: boolean,
   ) => {
     const {
-      getState,
       options: {
         enableBatchRowSelection,
         enableMultiRowSelection,
@@ -167,10 +160,11 @@ export const getMRT_RowSelectionHandler =
         rowPinningDisplayMode,
       },
       refs: { lastSelectedRowId: lastSelectedRowId },
+      state,
     } = table;
     const {
       pagination: { pageIndex, pageSize },
-    } = getState();
+    } = state;
 
     const paginationOffset = manualPagination ? 0 : pageSize * pageIndex;
 
@@ -229,7 +223,7 @@ export const getMRT_RowSelectionHandler =
       changedRowIds.forEach((rowId) => {
         const rowToTogglePin = table.getRow(rowId);
         rowToTogglePin.pin(
-          !wasCurrentRowChecked //was not previously pinned or selected
+          !wasCurrentRowChecked // was not previously pinned or selected
             ? rowPinningDisplayMode?.includes('bottom')
               ? 'bottom'
               : 'top'

@@ -1,14 +1,12 @@
-import { type MouseEvent, useState } from 'react';
+import { useState } from 'react';
+import type { MouseEvent } from 'react';
 
-import { type RowPinningPosition } from '@tanstack/react-table';
+import type { RowPinningPosition } from '@tanstack/react-table';
 
-import { ActionIcon, type ActionIconProps, Tooltip } from '@mantine/core';
+import { ActionIcon, Tooltip } from '@mantine/core';
+import type { ActionIconProps } from '@mantine/core';
 
-import {
-  type MRT_Row,
-  type MRT_RowData,
-  type MRT_TableInstance,
-} from '../../types';
+import type { MRT_Row, MRT_RowData, MRT_TableInstance } from '../../types';
 
 interface Props<TData extends MRT_RowData> extends ActionIconProps {
   pinningPosition: RowPinningPosition;

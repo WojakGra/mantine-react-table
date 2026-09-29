@@ -2,14 +2,15 @@ import clsx from 'clsx';
 
 import classes from './MRT_TableFooter.module.css';
 
-import { TableTfoot, type TableTfootProps } from '@mantine/core';
+import { TableTfoot } from '@mantine/core';
+import type { TableTfootProps } from '@mantine/core';
 
 import { MRT_TableFooterRow } from './MRT_TableFooterRow';
 
-import {
-  type MRT_ColumnVirtualizer,
-  type MRT_RowData,
-  type MRT_TableInstance,
+import type {
+  MRT_ColumnVirtualizer,
+  MRT_RowData,
+  MRT_TableInstance,
 } from '../../types';
 import { parseFromValuesOrFunc } from '../../utils/utils';
 
@@ -25,11 +26,11 @@ export const MRT_TableFooter = <TData extends MRT_RowData>({
 }: Props<TData>) => {
   const {
     getFooterGroups,
-    getState,
     options: { enableStickyFooter, layoutMode, mantineTableFooterProps },
     refs: { tableFooterRef },
+    state,
   } = table;
-  const { isFullScreen } = getState();
+  const { isFullScreen } = state;
 
   const tableFooterProps = {
     ...parseFromValuesOrFunc(mantineTableFooterProps, {
